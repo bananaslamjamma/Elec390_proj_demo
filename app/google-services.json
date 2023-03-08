@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "205697332073",
+    "firebase_url": "https://senseplant-189a2-default-rtdb.firebaseio.com",
+    "project_id": "senseplant-189a2",
+    "storage_bucket": "senseplant-189a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205697332073:android:59d064250d6c16b85a43f8",
+        "android_client_info": {
+          "package_name": "com.example.elec390_proj_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205697332073-63bratmh388l7v900m7l8e852c9p0f1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBif8PEvLaHgOr05U6I5JHkFowzXpYw_yE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205697332073-63bratmh388l7v900m7l8e852c9p0f1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
