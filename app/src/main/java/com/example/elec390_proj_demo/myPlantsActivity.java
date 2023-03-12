@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.elec390_proj_demo.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class myPlantsActivity extends AppCompatActivity {
@@ -18,6 +20,8 @@ public class myPlantsActivity extends AppCompatActivity {
     Button button;
     TextView textView;
     FirebaseUser user;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference root = database.getReference("users");
 
 
     @Override

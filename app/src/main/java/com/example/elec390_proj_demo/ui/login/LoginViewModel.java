@@ -21,11 +21,11 @@ public class LoginViewModel extends ViewModel {
         this.loginRepository = loginRepository;
     }
 
-    LiveData<LoginFormState> getLoginFormState() {
+    public LiveData<LoginFormState> getLoginFormState() {
         return loginFormState;
     }
 
-    LiveData<LoginResult> getLoginResult() {
+    public LiveData<LoginResult> getLoginResult() {
         return loginResult;
     }
 
@@ -51,7 +51,7 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    // A placeholder username validation check
+    // either follows a username (any combo of string) or a email pattern xxxx@xxxx.xxx
     private boolean isUserNameValid(String username) {
         if (username == null) {
             return false;
@@ -63,7 +63,7 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    // A placeholder password validation check
+    // password validation: must be greater than 5 chars
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 5;
     }
