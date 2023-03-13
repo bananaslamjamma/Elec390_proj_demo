@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     //private FireBaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference root = database.getReference("Books");
+    DatabaseReference root = database.getReference("users");
     DatabaseReference best_sellers = root.child("Best_Sellers");
     DatabaseReference plants = root.child("Plants");
 
@@ -208,8 +208,9 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         /**
+         * deprecated, changed data structure
          * detects if value was changed in db, this will get the entire Plants node
-         */
+
         plants.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -221,11 +222,13 @@ public class LoginActivity extends AppCompatActivity {
                 plants.updateChildren(reset);
             }
 
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("ERROR", "onCancelled", databaseError.toException());
             }
         });
+         */
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
