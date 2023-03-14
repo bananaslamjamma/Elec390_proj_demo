@@ -2,9 +2,12 @@ package com.example.elec390_proj_demo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,13 +43,44 @@ public class plantRegistrationActivity extends AppCompatActivity {
     String strDate = dateFormat.format(date);
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //make "Edit Plants" hidden
+        //menu.getItem(2).setVisible(false);
+        return true;
+    }
 
+    public boolean onOptionsItemSelected(MenuItem item){
+        System.out.println("ITEM ID");
+        System.out.println(item.getItemId());
+        switch (item.getItemId()){
+            //this is the back button
+            case android.R.id.home:
+                System.out.println("HOME");
+                Intent myIntent = new Intent(getApplicationContext(), myPlantsActivity.class);
+                startActivity(myIntent);
+                break;
+            case R.id.log_out:
+                System.out.println("LOGOUT");
+                //logout
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
 
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_registration);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         homeNavText = findViewById(R.id.plantProfileReturn);
         submitButton = findViewById(R.id.submitButton);
         n_plant = findViewById(R.id.name_plant);

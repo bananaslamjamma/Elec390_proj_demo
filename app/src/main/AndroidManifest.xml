@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Elec390_proj_demo"
         tools:targetApi="31">
         <activity
+            android:name=".plantProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".plantRegistrationActivity"
             android:exported="false" />
         <activity
