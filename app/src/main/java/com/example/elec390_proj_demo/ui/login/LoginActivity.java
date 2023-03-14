@@ -1,10 +1,13 @@
 package com.example.elec390_proj_demo.ui.login;
 
+
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,6 +15,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,20 +27,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.elec390_proj_demo.databinding.ActivityLoginBinding;
+import com.example.elec390_proj_demo.myPlantsActivity;
+
 import com.example.elec390_proj_demo.Plants;
 import com.example.elec390_proj_demo.R;
-import com.example.elec390_proj_demo.ui.login.LoginViewModel;
-import com.example.elec390_proj_demo.ui.login.LoginViewModelFactory;
-import com.example.elec390_proj_demo.databinding.ActivityLoginBinding;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.elec390_proj_demo.RegisterActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -53,12 +58,13 @@ import java.util.Calendar;
  */
 
 public class LoginActivity extends AppCompatActivity {
+    FirebaseAuth mAuth;
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
     //private FireBaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference root = database.getReference("Books");
+    DatabaseReference root = database.getReference("users");
     DatabaseReference best_sellers = root.child("Best_Sellers");
     DatabaseReference plants = root.child("Plants");
 
@@ -69,8 +75,22 @@ public class LoginActivity extends AppCompatActivity {
     Date date = Calendar.getInstance().getTime();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     String strDate = dateFormat.format(date);
+    TextView registerNavText;
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            //open main activity that needs
+            Intent intent = new Intent(getApplicationContext(), myPlantsActivity.class);
+            startActivity(intent);
+            finish();
+            //reload();
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,9 +98,9 @@ public class LoginActivity extends AppCompatActivity {
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+        mAuth = FirebaseAuth.getInstance();
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
@@ -91,6 +111,64 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressBar loadingProgressBar = binding.loading;
         //remove to init
         //setPlantsStack();
+
+
+        registerNavText = findViewById(R.id.registerPage);
+        registerNavText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                String email, password;
+                email = String.valueOf(usernameEditText.getText());
+                password = String.valueOf((passwordEditText.getText()));
+
+                if (TextUtils.isEmpty(email)){
+                    Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(password)){
+                    Toast.makeText(LoginActivity.this, "Enter Password", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                loadingProgressBar.setVisibility(View.GONE);
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),"Login Successful!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), myPlantsActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    // Sign in success, update UI with the signed-in user's information
+                                    //updateUI(user);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        });
+
+
+
+
+
+            }
+        });
+
+
 
 
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -130,8 +208,9 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         /**
+         * deprecated, changed data structure
          * detects if value was changed in db, this will get the entire Plants node
-         */
+
         plants.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -143,11 +222,13 @@ public class LoginActivity extends AppCompatActivity {
                 plants.updateChildren(reset);
             }
 
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("ERROR", "onCancelled", databaseError.toException());
             }
         });
+         */
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -216,6 +297,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+/**
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,6 +306,7 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+ **/
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
