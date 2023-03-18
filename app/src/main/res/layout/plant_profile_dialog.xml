@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Plant Settings"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView_tgt_moisture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
+        android:text="Enter Target Moisture"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/target_moisture_dia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Target Moisture"
+        android:imeOptions="actionNext"
+        android:inputType="numberSigned" />
+
+    <TextView
+        android:id="@+id/textView_water_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
+        android:text="Enter Watering Amount"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/watering_amount_dia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Watering Amount"
+        android:imeOptions="actionNext"
+        android:inputType="numberSigned" />
+    <!--
+    <CheckBox
+        android:id="@+id/active_plants_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Set as Active Plant?"
+        android:textSize="18sp" />
+    -->
+    <CheckBox
+        android:id="@+id/manual_watering_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Set Manual Watering!"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/auto_refresh_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Update Current Moisture!"
+        android:textSize="18sp" />
+    <!--
+    <CheckBox
+        android:id="@+id/resevoir_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Set as Active Plant?"
+        android:textSize="20sp" />
+    -->
+    <Button
+        android:id="@+id/profile_submit_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="Submit" />
+</LinearLayout>

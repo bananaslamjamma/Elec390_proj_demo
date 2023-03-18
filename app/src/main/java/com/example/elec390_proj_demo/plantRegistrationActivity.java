@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.elec390_proj_demo.ui.login.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,7 +43,6 @@ public class plantRegistrationActivity extends AppCompatActivity {
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     String strDate = dateFormat.format(date);
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -71,7 +71,6 @@ public class plantRegistrationActivity extends AppCompatActivity {
                 finish();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -110,8 +109,11 @@ public class plantRegistrationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String plantName;
                 plantName = String.valueOf(n_plant.getText());
-
-                Map<String, Plants> plantsMap = new HashMap<>();
+                if(plantName.equals("Active Plant")){
+                    Toast.makeText(plantRegistrationActivity.this, "Invalid Name!.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Plants plant = new Plants(plantName,strDate, 0);
                 //see Plants class for more info
                 Map<String, Object> plantValues = plant.toMap();

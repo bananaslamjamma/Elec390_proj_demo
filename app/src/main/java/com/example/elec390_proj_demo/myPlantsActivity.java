@@ -87,7 +87,6 @@ public class myPlantsActivity extends AppCompatActivity {
             u_root = database.getReference("users/" + uid_loc);
             textView.setText(user.getEmail());
         }
-        final int[] count = new int[1];
         u_root.child("/Plants").
                 addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -121,6 +120,7 @@ public class myPlantsActivity extends AppCompatActivity {
                                         //p_root = FirebaseDatabase.getInstance().getReferenceFromUrl(str);
                                         Intent intent = new Intent(myPlantsActivity.this, plantProfileActivity.class);
                                         intent.putExtra("plant_url", str);
+                                        intent.putExtra("plant_name", p.name);
                                         startActivity(intent);
                                         //finish(); should be able to go back using back button
                                     }

@@ -121,9 +121,14 @@ public class RegisterActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    //Create a blank Active Plant profile for the user
+                                    ActivePlant blank_prof = new ActivePlant();
+                                    Map<String, Object> activePlantValues = blank_prof.toMap();
+                                    Map<String,Object> childUpdates = new HashMap<>();
+                                    childUpdates.put("Active Plant", activePlantValues);
                                     //note this redirects you to the loginActivity, which should redirect to home if logged in
-                                    Map<String, String> users = new HashMap<>();
                                     //creating a user in db
+                                    Map<String, String> users = new HashMap<>();
                                     users.put("user_name" , user_name);
                                     users.put("u_id", user.getUid());
                                     //create a child with this name/u_id:
@@ -132,6 +137,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     root = root.child(user.getUid());
                                     //write to here | does not overwrite data in /users/
                                     root.setValue(users);
+                                    //write new blank profile
+                                    root.updateChildren(childUpdates);
                                     //return back to login
                                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                     startActivity(intent);
@@ -142,7 +149,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
-                                    //updateUI(null);
                                 }
                             }
                         });
