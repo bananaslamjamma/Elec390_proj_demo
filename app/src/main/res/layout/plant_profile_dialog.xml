@@ -63,7 +63,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Set Manual Watering?"
+        android:text="Set Manual Watering!"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/auto_refresh_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Update Current Moisture!"
         android:textSize="18sp" />
     <!--
     <CheckBox

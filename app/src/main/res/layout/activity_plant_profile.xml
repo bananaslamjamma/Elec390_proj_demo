@@ -7,117 +7,230 @@
     android:layout_height="match_parent"
     tools:context=".plantProfileActivity">
 
+
     <TextView
         android:id="@+id/p_date"
         style="@android:style/Widget.Material.Light.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/border"
+        android:layout_marginBottom="22dp"
         android:text="date"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault"
         android:textSize="20sp"
         app:autoSizeTextType="none"
-        app:layout_constraintBottom_toTopOf="@+id/mov_config"
-        app:layout_constraintStart_toStartOf="@+id/p_descrp"
-        app:layout_constraintTop_toBottomOf="@+id/p_descrp" />
-
-    <Button
-        android:id="@+id/mov_config"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="22dp"
-        android:text="Configuration"
-        app:layout_constraintBottom_toTopOf="@+id/active_plants_check"
-        app:layout_constraintEnd_toStartOf="@+id/save_button"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/p_date" />
-
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="203dp"
-        android:text="Save Changes"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/p_current_moisture_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mov_config"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+    <EditText
+        android:id="@+id/p_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="Plant Name"
+        android:imeOptions="actionNext"
+        android:inputType="none"
+        app:layout_constraintBottom_toTopOf="@+id/p_target_moisture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_name_text" />
+
+    <TextView
+        android:id="@+id/p_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="2dp"
+        android:text="Plant Name"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/p_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_current_moisture" />
+
+    <EditText
+        android:id="@+id/p_target_moisture_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="Target Moisture"
+        android:imeOptions="actionNext"
+        android:inputType="none"
+        app:layout_constraintBottom_toTopOf="@+id/p_watering_amount_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_target_moisture" />
+
+    <TextView
+        android:id="@+id/p_target_moisture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="2dp"
+        android:text="Target Moisture"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/p_target_moisture_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_name" />
+
+    <!--
     <TextView
         android:id="@+id/p_descrp"
         style="@android:style/Widget.Material.Light.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp"
         android:background="@drawable/border"
         android:text="description"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault"
         android:textSize="20sp"
         app:autoSizeTextType="none"
-        app:layout_constraintBottom_toTopOf="@+id/p_date"
-        app:layout_constraintStart_toStartOf="@+id/status"
-        app:layout_constraintTop_toBottomOf="@+id/status" />
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="392dp" />
 
     <TextView
         android:id="@+id/p_name"
         style="@android:style/Widget.Material.Light.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginBottom="22dp"
         android:background="@drawable/border"
         android:text="p_name"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault"
         android:textSize="20sp"
         app:autoSizeTextType="none"
-        app:layout_constraintBottom_toTopOf="@+id/status"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="286dp" />
 
     <TextView
         android:id="@+id/status"
         style="@android:style/Widget.Material.Light.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="29dp"
         android:background="@drawable/border"
         android:text="status"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20sp"
         app:autoSizeTextType="none"
-        app:layout_constraintBottom_toTopOf="@+id/p_descrp"
-        app:layout_constraintStart_toStartOf="@+id/p_name"
-        app:layout_constraintTop_toBottomOf="@+id/p_name" />
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="336dp" />
+-->
 
-    <ImageView
-        android:id="@+id/imageView"
+    <TextView
+        android:id="@+id/p_current_moisture_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="12dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:text="Current Moisture"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/p_current_moisture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_date" />
+
+    <EditText
+        android:id="@+id/p_current_moisture"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="Current Moisture"
+        android:imeOptions="actionNext"
+        android:inputType="none"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/p_name_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_current_moisture_text" />
 
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="94dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="195dp"
+    <TextView
+        android:id="@+id/p_watering_amount_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="16dp"
+        android:text="Watering Amount"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/p_watering_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_target_moisture_text" />
+
+    <EditText
+        android:id="@+id/p_watering_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="Watering Amount"
+        android:imeOptions="actionNext"
+        android:inputType="none"
         app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:layout_constraintTop_toBottomOf="@+id/p_watering_amount_text" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="23dp"
+        android:text="Save Changes"
+        app:layout_constraintBottom_toTopOf="@+id/active_plants_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mov_config"
+        app:layout_constraintTop_toBottomOf="@+id/p_watering_amount" />
+
+    <Button
+        android:id="@+id/mov_config"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="17dp"
+        android:text="Configuration"
+        android:visibility="invisible"
+        app:layout_constraintBaseline_toBaselineOf="@+id/save_button"
+        app:layout_constraintEnd_toStartOf="@+id/save_button"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
         android:id="@+id/active_plants_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="133dp"
+        android:layout_marginBottom="20dp"
         android:text="Set as Active Plant?"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/save_button"
+        app:layout_constraintStart_toStartOf="@+id/save_button"
+        app:layout_constraintTop_toBottomOf="@+id/save_button" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/p_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mov_config" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

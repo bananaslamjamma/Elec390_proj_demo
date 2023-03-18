@@ -71,7 +71,6 @@ public class plantRegistrationActivity extends AppCompatActivity {
                 finish();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

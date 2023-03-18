@@ -82,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="Flag"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/reset_pass"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/reset_pass"
@@ -92,6 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="1dp"
+        android:visibility="invisible"
         android:text="Daylily"
         app:layout_constraintBaseline_toBaselineOf="@+id/get_data"
         app:layout_constraintEnd_toStartOf="@+id/get_data" />
@@ -106,6 +108,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

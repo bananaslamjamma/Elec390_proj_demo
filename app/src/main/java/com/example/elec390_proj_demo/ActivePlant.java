@@ -61,6 +61,14 @@ public class ActivePlant {
         return current_moisture;
     }
 
+    public void wipeProfile(){
+        this.address = "dummy";
+        this.manualFlag = false;
+        this.arduinoRefresh = false;
+        this.reservoirFlag = false;
+        this.current_moisture = 0;
+    }
+
     public void setCurrent_moisture(int current_moisture) {
         this.current_moisture = current_moisture;
     }
