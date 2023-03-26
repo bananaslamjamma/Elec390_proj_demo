@@ -78,6 +78,29 @@ public class Plants {
         this.target_moisture = target_moisture;
     }
 
+    public int calcCurrentMoisture() {
+        int rMoisture = this.target_moisture;
+        int result = 0;
+
+        if (rMoisture >= 656) {
+            // soil dry, needs watering
+            result = 1;
+        } else if (rMoisture < 656 && rMoisture >= 519) {
+            // soil somewhat watered
+            result = 2;
+        } else if (rMoisture < 519 && rMoisture >= 473) {
+            // soil moderately watered
+            result = 3;
+        } else if (rMoisture < 473 && rMoisture >= 420) {
+            // soil very well watered
+            result = 4;
+        } else if (rMoisture <= 356) {
+            //soil doesn't need watering
+            result = 5;
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         return "Plants{" +
