@@ -47,7 +47,9 @@ public class plantRegistrationActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        //make "Edit Plants" hidden
+        //make "Help " hidden
+        MenuItem item = menu.findItem(R.id.help_mode);
+        item.setVisible(false);
         //menu.getItem(2).setVisible(false);
         return true;
     }

@@ -34,4 +34,27 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name= "level_1">Dry Soil (1)</string>
+    <string name= "level_2">Wet Soil (2)</string>
+    <string name= "level_3"> Moderately (3)</string>
+    <string name= "level_4">Mild (4) </string>
+    <string name= "level_5">Well Watered (5)</string>
+    <string name= "info_desc" >
+        <font size="20"> <b> *** DISCLAIMER *** </b>  </font>\n
+        \n
+        <font size="16">
+        The following moisture levels are rough approximations.\n
+            \n
+        You may need to experiment with what works best for your plant needs/soil type. \n
+            \n
+        The moisture levels can be interpreted as: \n
+            \n
+        <b>Dry Soil (1)</b> - "Very dry soil, needs watering." \n
+        <b>Wet Soil (2)</b> - "Soil is dry but has little moisture in it." \n
+        <b>Moderately (3)</b> - "The soil has a decent amount of moisture." \n
+       <b> Mild (4)</b> - "The soil contains a good amount of moisture." \n
+        <b>Well Watered (5)</b> - "The soil contains a lot of moisture."  \n
+        </font>
+    </string>
 </resources>
