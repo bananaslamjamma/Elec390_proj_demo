@@ -52,6 +52,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/p_current_moisture" />
 
+
     <EditText
         android:id="@+id/p_target_moisture_text"
         android:layout_width="0dp"

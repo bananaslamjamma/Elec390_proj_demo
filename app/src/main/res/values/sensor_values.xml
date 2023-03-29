@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="target_moisture_settings">
+        <item>Dry Soil (1)</item>
+        <item>Wet Soil (2)</item>
+        <item>Moderately (3)</item>
+        <item>Mild (4) </item>
+        <item>Well Watered (5)</item>
+    </string-array>
+</resources>
+

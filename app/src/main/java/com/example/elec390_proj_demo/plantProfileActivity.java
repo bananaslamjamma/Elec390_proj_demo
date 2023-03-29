@@ -10,11 +10,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.elec390_proj_demo.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,19 +32,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class plantProfileActivity extends AppCompatActivity {
+public class plantProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     FirebaseAuth auth;
     FirebaseUser user;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference u_root = database.getReference("users");
     DatabaseReference p_root;
-
     DatabaseReference active_root;
     ImageView img;
     TextView p_current_moisture, date_view;
     Button save_change_button, move_config;
-
     EditText dia_target_moisture, dia_watering_amount, target_moisture, watering_amount, current_moisture, plantName;
     Button submitDia;
     Dialog dialog;
@@ -48,8 +50,11 @@ public class plantProfileActivity extends AppCompatActivity {
     String current_plant = "";
     //global objects
     Plants g_plants;
+
+    Spinner spin;
     ActivePlant g_active;
 
+    int moistureLevelValue  = 0;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -104,6 +109,12 @@ public class plantProfileActivity extends AppCompatActivity {
         manualWaterCheck = dialog.findViewById(R.id.manual_watering_check);
         autoRefreshCheck = dialog.findViewById(R.id.auto_refresh_check);
         submitDia = dialog.findViewById(R.id.profile_submit_dia);
+        //drop down list
+        spin = (Spinner) dialog.findViewById(R.id.TEST);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.target_moisture_settings, android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(adapter);
+        spin.setOnItemSelectedListener(this);
         //auth
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -142,7 +153,8 @@ public class plantProfileActivity extends AppCompatActivity {
                     plantName.setText(String.valueOf(p.getName()));
                     date_view.setText(String.valueOf(p.getDate()));
                     //ints
-                    target_moisture.setText(String.valueOf(p.getTarget_moisture()));
+                    int plantMoistureLevel =  p.calcCurrentMoisture();
+                    target_moisture.setText(String.valueOf(plantMoistureLevel));
                     watering_amount.setText(String.valueOf(p.getWatering_amount()));
                     getSupportActionBar().setTitle(String.valueOf(p.getName()));
                 }
@@ -174,15 +186,14 @@ public class plantProfileActivity extends AppCompatActivity {
                         });
                     }
                     else{
-                        System.out.println("EVAN FUCK YOU");
                         System.out.println(p.getAddress());
                         String[] arrValues = p.getAddress().split(Pattern.quote("/"));
-                        System.out.println("EVAN FUCK YOU 2");
-                        System.out.println(arrValues[2]);
+                        int simpleResult = p.calcCurrentMoisture();
                         if(!(current_plant.equals(arrValues[2]))){
                             System.out.println("YOU'RE IN THE WRONG NEIGHBOURHOOD");
                             activePlantCheck.setVisibility(View.VISIBLE);
                             move_config.setVisibility(View.INVISIBLE);
+
                             activePlantCheck.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -203,7 +214,7 @@ public class plantProfileActivity extends AppCompatActivity {
                             //if active plant
                             p_current_moisture.setVisibility(View.VISIBLE);
                             current_moisture.setVisibility(View.VISIBLE);
-                            current_moisture.setText(String.valueOf(p.getCurrent_moisture()));
+                            current_moisture.setText(String.valueOf(simpleResult));
                             activePlantCheck.setVisibility(View.INVISIBLE);
                             move_config.setVisibility(View.VISIBLE);
                         }
@@ -231,6 +242,8 @@ public class plantProfileActivity extends AppCompatActivity {
     public void showPopUp() {
         //note: the hardware is listening to one particular child:
         // don't update multiple fields at the same time
+
+
         manualWaterCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -250,11 +263,12 @@ public class plantProfileActivity extends AppCompatActivity {
             }
         });
         submitDia.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                int moisture_input = Integer.valueOf(dia_target_moisture.getText().toString());
+                //int moisture_input = Integer.valueOf(dia_target_moisture.getText().toString());
+                int moisture_input = moistureLevelValue;
                 int water_amt_input = Integer.valueOf(dia_watering_amount.getText().toString());
+                spin.getSelectedItem().toString();
                 g_plants.setTarget_moisture(moisture_input);
                 g_plants.setWatering_amount(water_amt_input);
                 Map<String, Object> postValues = g_plants.toMap();
@@ -266,6 +280,34 @@ public class plantProfileActivity extends AppCompatActivity {
                 recreate();
             }
         });
+
+
+
         dialog.show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        int rValue = 0;
+        Toast.makeText(adapterView.getContext(),
+                "OnItemSelectedListener : " +  adapterView.getItemAtPosition(i).toString(),
+                Toast.LENGTH_SHORT).show();
+        switch(i){
+            case 0: rValue = 656;
+            break;
+            case 1: rValue = 560;
+            break;
+            case 2: rValue = 500;
+            break;
+            case 3: rValue = 450;
+            break;
+            case 4: rValue = 340;
+            break;
+        }
+        moistureLevelValue = rValue;
+    }
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
