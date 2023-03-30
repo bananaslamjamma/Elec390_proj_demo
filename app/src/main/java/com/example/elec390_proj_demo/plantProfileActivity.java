@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +46,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
     Button save_change_button, move_config;
     EditText dia_target_moisture, dia_watering_amount, target_moisture, watering_amount, current_moisture, plantName;
     Button submitDia;
-    Dialog dialog;
+    Dialog dialog, helpDialog;
     CheckBox activePlantCheck, manualWaterCheck, autoRefreshCheck;
     String current_plant = "";
     //global objects
@@ -64,6 +65,9 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.help_mode:
+                helpDialog.show();
+                break;
             case android.R.id.home:
                 Intent myIntent = new Intent(getApplicationContext(), myPlantsActivity.class);
                 startActivity(myIntent);
@@ -96,7 +100,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
         current_moisture = findViewById(R.id.p_current_moisture);
         watering_amount = findViewById(R.id.p_watering_amount);
         //Buttons
-        save_change_button = findViewById(R.id.save_button);
+        save_change_button = findViewById(R.id.upload_button);
         move_config = findViewById(R.id.mov_config);
         activePlantCheck = findViewById(R.id.active_plants_check);
         //dialog
@@ -104,6 +108,11 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.plant_profile_dialog);
+        //helpDialog
+        helpDialog =  new Dialog(plantProfileActivity.this);
+        helpDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        helpDialog.setCancelable(true);
+        helpDialog.setContentView(R.layout.dialog_text_popup);
         dia_target_moisture = dialog.findViewById(R.id.target_moisture_dia);
         dia_watering_amount = dialog.findViewById(R.id.watering_amount_dia);
         manualWaterCheck = dialog.findViewById(R.id.manual_watering_check);
@@ -154,7 +163,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                     date_view.setText(String.valueOf(p.getDate()));
                     //ints
                     int plantMoistureLevel =  p.calcCurrentMoisture();
-                    target_moisture.setText(String.valueOf(plantMoistureLevel));
+                    target_moisture.setText(String.valueOf(targetMoistureInterpreter(plantMoistureLevel)));
                     watering_amount.setText(String.valueOf(p.getWatering_amount()));
                     getSupportActionBar().setTitle(String.valueOf(p.getName()));
                 }
@@ -214,20 +223,13 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                             //if active plant
                             p_current_moisture.setVisibility(View.VISIBLE);
                             current_moisture.setVisibility(View.VISIBLE);
-                            current_moisture.setText(String.valueOf(simpleResult));
+                            //simpleResult = 0;
+                            current_moisture.setText(String.valueOf(targetMoistureInterpreter(simpleResult)));
                             activePlantCheck.setVisibility(View.INVISIBLE);
                             move_config.setVisibility(View.VISIBLE);
                         }
                     }
 
-                    /**
-                    if (p.getAddress().equals())
-                    plant_view.setText("Plant Name: " + String.valueOf(p.));
-                    status_view.setText("Plant Status: " + String.valueOf(p.getFlag()));
-                    //description_view.setText(p.setDescription());
-                    date_view.setText("Plant Date: " + String.valueOf(p.getDate()));
-                    getSupportActionBar().setTitle(String.valueOf(p.getName()));
- **/
                 }
             }
         });
@@ -240,9 +242,6 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
     }
 
     public void showPopUp() {
-        //note: the hardware is listening to one particular child:
-        // don't update multiple fields at the same time
-
 
         manualWaterCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -292,6 +291,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
         Toast.makeText(adapterView.getContext(),
                 "OnItemSelectedListener : " +  adapterView.getItemAtPosition(i).toString(),
                 Toast.LENGTH_SHORT).show();
+
         switch(i){
             case 0: rValue = 656;
             break;
@@ -309,5 +309,23 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public String targetMoistureInterpreter(int i){
+        String str = "";
+        switch(i){
+            case 1:
+                str = getString(R.string.level_1);
+                break;
+            case 2: str = getString(R.string.level_2);
+                break;
+            case 3: str = getString(R.string.level_3);
+                break;
+            case 4: str = getString(R.string.level_4);
+                break;
+            case 5: str = getString(R.string.level_5);
+                break;
+        }
+        return str;
     }
 }

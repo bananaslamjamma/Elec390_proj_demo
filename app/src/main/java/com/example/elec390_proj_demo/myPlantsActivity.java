@@ -45,6 +45,8 @@ public class myPlantsActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         //make "Edit Plants" hidden
+        MenuItem item = menu.findItem(R.id.help_mode);
+        item.setVisible(false);
         menu.getItem(2).setVisible(false);
         return true;
     }

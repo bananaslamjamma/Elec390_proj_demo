@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +23,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,10 +35,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class plantRegistrationActivity extends AppCompatActivity {
+public class plantRegistrationActivity extends AppCompatActivity implements AsyncResponse{
     TextView textView, homeNavText;
     EditText field1, field2, n_plant;
-    Button submitButton;
+    Button submitButton, apiButton;
     FirebaseAuth auth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference u_root = database.getReference("users");
@@ -42,12 +48,15 @@ public class plantRegistrationActivity extends AppCompatActivity {
     Date date = Calendar.getInstance().getTime();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     String strDate = dateFormat.format(date);
+    PerenualHandler asyncTask = new PerenualHandler();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        //make "Edit Plants" hidden
+        //make "Help " hidden
+        MenuItem item = menu.findItem(R.id.help_mode);
+        item.setVisible(false);
         //menu.getItem(2).setVisible(false);
         return true;
     }
@@ -80,8 +89,10 @@ public class plantRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plant_registration);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
         homeNavText = findViewById(R.id.plantProfileReturn);
         submitButton = findViewById(R.id.submitButton);
+        apiButton = findViewById(R.id.testButton);
         n_plant = findViewById(R.id.name_plant);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -104,6 +115,14 @@ public class plantRegistrationActivity extends AppCompatActivity {
             }
         });
 
+
+        apiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                syncTasks();
+            }
+        });
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,5 +141,45 @@ public class plantRegistrationActivity extends AppCompatActivity {
                 u_root.updateChildren(childUpdates);
             }
         });
+    }
+
+
+    private void syncTasks() {
+        try {
+            if (asyncTask.getStatus() != AsyncTask.Status.RUNNING){   // check if asyncTasks is running
+                asyncTask.cancel(true); // asyncTasks not running => cancel it
+                asyncTask = new PerenualHandler(); // reset task
+                //needed
+                asyncTask.delegate = this;
+                asyncTask.execute(); // execute new task (the same task)
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("MainActivity_TSK", "Error: "+e.toString());
+        }
+    }
+
+    @Override
+    public void processFinish(String output) {
+        String singleParsed = "";
+        String dataParsed = "";
+
+        System.out.println("API OUTPUT");
+        System.out.println(output);
+        try{
+            JSONObject jsonObject = new JSONObject(output);
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            for (int i = 0; i < 1; i++) {
+                JSONObject item = jsonArray.getJSONObject(i);
+                //JSONObject sun = item.getJSONObject("sunlight");
+                singleParsed = "ID:" + item.get("id") + "\n" +
+                                "COMMON NAME:" + item.get("common_name") + "\n" +
+                                "WATERING:" + item.get("watering") + "\n";
+
+            }
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+        System.out.println(singleParsed);
     }
 }
