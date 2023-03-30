@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".plantProfileActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/footer_image"
+        android:alpha="0.4"
+        app:layout_constraintBottom_toBottomOf="@+id/p_image">
+    </ImageView>
 
     <TextView
         android:id="@+id/p_date"
@@ -26,7 +34,7 @@
     <EditText
         android:id="@+id/p_name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="23dp"
         android:clickable="false"
         android:focusable="false"
@@ -56,7 +64,7 @@
     <EditText
         android:id="@+id/p_target_moisture_text"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="4dp"
         android:clickable="false"
         android:focusable="false"
@@ -172,7 +180,7 @@
     <EditText
         android:id="@+id/p_watering_amount"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="13dp"
         android:clickable="false"
         android:focusable="false"
@@ -191,6 +199,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="23dp"
         android:text="Set Image"
+        android:backgroundTint="@color/moss_green"
         app:layout_constraintBottom_toTopOf="@+id/active_plants_check"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/mov_config"
@@ -202,7 +211,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="17dp"
         android:text="Configuration"
-        android:visibility="invisible"
+        android:backgroundTint="@color/moss_green"
         app:layout_constraintBaseline_toBaselineOf="@+id/upload_button"
         app:layout_constraintEnd_toStartOf="@+id/upload_button"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -212,13 +221,16 @@
         android:id="@+id/active_plants_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="20dp"
+        android:gravity="center"
         android:text="Set as Active Plant?"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/upload_button"
-        app:layout_constraintStart_toStartOf="@+id/upload_button"
-        app:layout_constraintTop_toBottomOf="@+id/upload_button" />
+        app:layout_constraintStart_toStartOf="@id/mov_config"
+        app:layout_constraintEnd_toEndOf="@id/upload_button"
+        app:layout_constraintHorizontal_bias="0.752"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView"
