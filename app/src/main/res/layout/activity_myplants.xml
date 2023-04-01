@@ -31,14 +31,16 @@
             android:id="@+id/parent_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/user_info"
             android:background="@drawable/border"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+            app:layout_constraintTop_toTopOf="parent">
+
+        </LinearLayout>
     </ScrollView>
 
     <Button

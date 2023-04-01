@@ -13,9 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.commons.text.WordUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -54,10 +53,11 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     String strDate = dateFormat.format(date);
     PerenualHandler asyncTask = new PerenualHandler();
-    Dialog dialog;
+    Dialog dialog, confirm;
     LinearLayout layout;
+    CheckBox confirm_add;
 
-    ArrayList<Plants> apiPlantsList = new ArrayList<Plants>();
+    //ArrayList<Plants> apiPlantsList = new ArrayList<Plants>();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,17 +98,24 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
         setContentView(R.layout.activity_plant_registration);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
+        //dialog #1
         dialog = new Dialog(plantRegistrationActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.dialog_api);
         layout = dialog.findViewById(R.id.container_api);
+        //dialog #2
+        confirm = new Dialog(plantRegistrationActivity.this);
+        confirm.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        confirm.setCancelable(true);
+        confirm.setContentView(R.layout.dialog_confirm_add);
+        //other views
         field2 =  findViewById(R.id.field2);
         homeNavText = findViewById(R.id.plantProfileReturn);
         submitButton = findViewById(R.id.submitButton);
         apiButton = findViewById(R.id.testButton);
         n_plant = findViewById(R.id.name_plant);
+        //auth
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         if (user == null) {
@@ -134,10 +141,12 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
         apiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //destroy previous views
+                layout = dialog.findViewById(R.id.container_api);
+                layout.removeAllViews();
                 String input = "rose";
                 input = String.valueOf(field2.getText());
                 syncTasks(input);
-                System.out.println("SIZE " +  apiPlantsList.size());
             }
         });
 
@@ -155,8 +164,9 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
                 //see Plants class for more info
                 Map<String, Object> plantValues = plant.toMap();
                 Map<String,Object> childUpdates = new HashMap<>();
-                childUpdates.put(plantName, plantValues);
+                childUpdates.put(plantName.replaceAll("\\s+",""), plantValues);
                 u_root.updateChildren(childUpdates);
+                recreate();
             }
         });
     }
@@ -185,8 +195,41 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
         layout = dialog.findViewById(R.id.container_api);
         View view = getLayoutInflater().inflate(R.layout.search_results, null);
         TextView text = view.findViewById(R.id.plant_name);
+        TextView sci_name = view.findViewById(R.id.plant_name_species);
+
+        RelativeLayout container = view.findViewById(R.id.container_relative);
+        container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirm_add = confirm.findViewById(R.id.confirm_check);
+                confirm_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String plantName;
+                        plantName = p.getName();
+                        if(plantName.equals("Active Plant")){
+                            Toast.makeText(plantRegistrationActivity.this, "Invalid Name!.",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        //Plants plant = new Plants(plantName,strDate, 0);
+                        //see Plants class for more info
+                        Map<String, Object> plantValues = p.toMap();
+                        Map<String,Object> childUpdates = new HashMap<>();
+                        childUpdates.put(plantName.replaceAll("\\s+",""), plantValues);
+                        u_root.updateChildren(childUpdates);
+                        confirm.dismiss();
+                        dialog.dismiss();
+                        Toast.makeText(plantRegistrationActivity.this, "New Plant Added!.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+                confirm.show();
+            }
+        });
         ImageView icon = view.findViewById(R.id.plant_image);
         text.setText(WordUtils.capitalize(String.valueOf(p.getName())));
+        sci_name.setText(WordUtils.capitalize(String.valueOf(p.getScientific_name())));
         Glide.with(this).load(
                 p.getPlant_url() +
                 "").into(icon);
@@ -195,61 +238,20 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
 
     @Override
     public void processFinish(ArrayList<Plants> output) {
-        apiPlantsList = output;
+        ArrayList<Plants> apiPlantsList = new ArrayList<Plants>(output);
         for(int i = 0; i< apiPlantsList.size(); i++){
             addSearchItem(apiPlantsList.get(i));
         }
-        dialog.show();
-        /**
-         *
-        String singleParsed = "";
-        String dataParsed = "";
-        String common_name = "";
-        String watering = "";
-        String url = "";
-        System.out.println("API OUTPUT");
-        System.out.println(output);
-        try{
-            JSONObject jsonObject = new JSONObject(output);
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            for (int i = 0; i < 5; i++) {
-                String sunlight = "";
-                JSONObject item = jsonArray.getJSONObject(i);
-                JSONArray sun = item.getJSONArray("sunlight");
-                //concat all the sunlight elements together
-                if(sun.length() >= 0){
-                    for(int j = 0; j < sun.length(); j++){
-                        sunlight = sunlight + sun.get(j) + ",";
-                    }
-                }
-                JSONObject image = new JSONObject(item.getString("default_image"));
-                singleParsed = "ID:" + item.get("id") + "\n" +
-                                "COMMON NAME:" + item.get("common_name") + "\n" +
-                                "WATERING:" + item.get("watering") + "\n" +
-                                "SUNLIGHT:" + sunlight + "\n" +
-                                "default_image:" + image.get("thumbnail") + "\n";
-
-                common_name = item.getString("common_name");
-                watering = item.getString("watering");
-                url = image.getString("thumbnail");
-
-                Plants p = new Plants(common_name, strDate, sunlight, watering, url);
-                apiPlantsList.add(p);
-            }
-        } catch(JSONException e){
-            e.printStackTrace();
-            Toast.makeText(plantRegistrationActivity.this,
-                    "Whoops something went wrong! " ,
+        if(apiPlantsList.isEmpty()){
+            Toast.makeText(plantRegistrationActivity.this, "No Results Found!",
                     Toast.LENGTH_SHORT).show();
         }
-
-        System.out.println(singleParsed);
-         */
+        dialog.show();
         progressDialog.dismiss();
     }
 
     @Override
-    public void onPreExecute(){
-        apiPlantsList.clear();
+    public void beforeProcess(ArrayList<Plants> apiPlantsList){
+
     }
 }
