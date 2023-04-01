@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Plants {
 
-    public String name, date, nick_name, sunlight, watering_freq, plant_url;
+    public String name, date, scientific_name, sunlight, watering_freq, plant_url;
     public int watering_amount, target_moisture;
     public int flag;
 
@@ -20,6 +20,15 @@ public class Plants {
     }
 
     public Plants() {
+        this.name = "";
+        this.date = "";
+        this.flag = 0;
+        this.scientific_name = "";
+        this.watering_amount = 0;
+        this.target_moisture = 0;
+        this.sunlight = "";
+        this.watering_freq = "";
+        this.plant_url = "";
     }
 
 
@@ -27,19 +36,32 @@ public class Plants {
         this.name = name;
         this.date = date;
         this.flag = flag;
+        this.scientific_name = "";
         this.watering_amount = 0;
         this.target_moisture = 0;
+        this.sunlight = "";
+        this.watering_freq = "";
+        this.plant_url = "";
     }
 
-    public Plants(String name, String date, String sun, String wf, String url) {
+    public Plants(String name, String date, String sun, String wf, String url, String nick) {
         this.name = name;
         this.date = date;
         this.flag = 0;
+        this.scientific_name = nick;
         this.watering_amount = 0;
         this.target_moisture = 0;
         this.sunlight = sun;
         this.watering_freq = wf;
         this.plant_url = url;
+    }
+
+    public String getScientific_name() {
+        return scientific_name;
+    }
+
+    public void setScientific_name(String scientific_name) {
+        this.scientific_name = scientific_name;
     }
 
     public String getSunlight() {
@@ -134,7 +156,7 @@ public class Plants {
         return "Plants{" +
                 "name='" + name + '\'' +
                 ", date='" + date + '\'' +
-                ", nick_name='" + nick_name + '\'' +
+                ", scientific_name='" + scientific_name + '\'' +
                 ", sunlight='" + sunlight + '\'' +
                 ", watering_freq='" + watering_freq + '\'' +
                 ", plant_url='" + plant_url + '\'' +
@@ -149,6 +171,7 @@ public class Plants {
         result.put("name", name);
         result.put("date", date);
         result.put("flag", flag);
+        result.put("scientific_name", scientific_name);
         result.put("sunlight",  sunlight);
         result.put("watering_freq",  watering_freq);
         result.put("plant_url",  plant_url);

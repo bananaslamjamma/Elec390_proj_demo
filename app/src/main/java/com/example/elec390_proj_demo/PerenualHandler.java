@@ -3,6 +3,7 @@ package com.example.elec390_proj_demo;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import org.apache.commons.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,12 +79,14 @@ public class PerenualHandler extends AsyncTask<String, Void, String> {
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             for (int i = 0; i < 5; i++) {
                 String sunlight = "";
+                String sci_name = "";
                 JSONObject item = jsonArray.getJSONObject(i);
                 JSONArray sun = item.getJSONArray("sunlight");
+                JSONArray scientific_name = item.getJSONArray("scientific_name");
                 //concat all the sunlight elements together
                 if(sun.length() >= 0){
                     for(int j = 0; j < sun.length(); j++){
-                        sunlight = sunlight + sun.get(j) + ",";
+                        sunlight = sunlight + sun.get(j) + ", ";
                     }
                 }
                 JSONObject image = new JSONObject(item.getString("default_image"));
@@ -102,7 +105,12 @@ public class PerenualHandler extends AsyncTask<String, Void, String> {
                 }else
                     url = image.getString("original_url");
 
-                Plants p = new Plants(common_name, strDate, sunlight, watering, url);
+                if(!(scientific_name.isNull(0))){
+                    sci_name = scientific_name.getString(0);
+                }else
+                    sci_name = "not found";
+
+                Plants p = new Plants(WordUtils.capitalize(common_name), strDate, sunlight, watering, url, sci_name);
                 apiPlantsList.add(p);
             }
         } catch(JSONException e){
@@ -112,7 +120,7 @@ public class PerenualHandler extends AsyncTask<String, Void, String> {
     }
     @Override
     protected void onPreExecute() {
-        delegate.onPreExecute();
+        delegate.beforeProcess(apiPlantsList);
     }
 }
 

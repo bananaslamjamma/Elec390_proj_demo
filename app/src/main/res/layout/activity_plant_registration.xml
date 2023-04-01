@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="92dp"
-        android:hint="field2"
+        android:hint="Search for...."
         android:inputType="text"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"

@@ -5,5 +5,5 @@ import java.util.ArrayList;
 public interface AsyncResponse {
     void processFinish(ArrayList<Plants> output);
 
-    void onPreExecute();
+    void beforeProcess(ArrayList<Plants> apiPlantsList);
 }

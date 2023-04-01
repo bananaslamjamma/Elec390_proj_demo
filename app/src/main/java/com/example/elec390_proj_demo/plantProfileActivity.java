@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.elec390_proj_demo.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,11 +45,14 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
     ImageView img;
     TextView p_current_moisture, date_view;
     Button save_change_button, move_config;
-    EditText dia_target_moisture, dia_watering_amount, target_moisture, watering_amount, current_moisture, plantName;
+    EditText dia_target_moisture, dia_watering_amount,
+            target_moisture, watering_amount,
+            current_moisture, plantName,
+            sci_name, water_frequency, sunlight;
     Button submitDia;
     Dialog dialog, helpDialog;
     CheckBox activePlantCheck, manualWaterCheck, autoRefreshCheck;
-    String current_plant = "";
+    String current_plant = "", nowhite;
     //global objects
     Plants g_plants;
 
@@ -99,6 +103,9 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
         date_view = findViewById(R.id.p_date);
         current_moisture = findViewById(R.id.p_current_moisture);
         watering_amount = findViewById(R.id.p_watering_amount);
+        sunlight = findViewById(R.id.p_sunlight);
+        water_frequency = findViewById(R.id.p_watering_freq);
+        sci_name = findViewById(R.id.p_family_name);
         //Buttons
         save_change_button = findViewById(R.id.upload_button);
         move_config = findViewById(R.id.mov_config);
@@ -141,32 +148,50 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
         if (extras != null) {
             //The key argument here must match that used in the other activity
             String value = extras.getString("plant_url");
+            String img_url = extras.getString("plant_img");
             current_plant = extras.getString("plant_name");
+            nowhite = extras.getString("p_nameWhite");
             System.out.println("current Plant");
             System.out.println(current_plant);
             p_root = FirebaseDatabase.getInstance().getReferenceFromUrl(value);
             System.out.println("PPP ROOT");
             System.out.println(p_root);
+            System.out.println("NO WHITE SPACE");
+            System.out.println(nowhite);
+            img = findViewById(R.id.imageView);
+            if(!img_url.equals("")){
+                Glide.with(this).load(
+                        img_url +
+                                "").into(img);
+            }
         }
+
         //get data once
         p_root.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    System.out.println(("firebase " + " Error getting data " + task.getException()));
-                } else {
-                    System.out.println(("firebase " + String.valueOf(task.getResult().getValue())));
-                    Plants p = task.getResult().getValue(Plants.class);
-                    g_plants = p;
-                    //strs
-                    plantName.setText(String.valueOf(p.getName()));
-                    date_view.setText(String.valueOf(p.getDate()));
-                    //ints
-                    int plantMoistureLevel =  p.calcCurrentMoisture();
-                    target_moisture.setText(String.valueOf(targetMoistureInterpreter(plantMoistureLevel)));
-                    watering_amount.setText(String.valueOf(p.getWatering_amount()));
-                    getSupportActionBar().setTitle(String.valueOf(p.getName()));
+                if(task.getResult().exists()){
+                    if (!task.isSuccessful()) {
+                        System.out.println(("firebase " + " Error getting data " + task.getException()));
+                    } else {
+                        System.out.println(("firebase " + task.getResult().getValue()));
+                        Plants p = task.getResult().getValue(Plants.class);
+                        g_plants = p;
+                        //strs
+                        plantName.setText(String.valueOf(p.getName()));
+                        date_view.setText(String.valueOf(p.getDate()));
+                        sunlight.setText(String.valueOf(p.getSunlight()));
+                        water_frequency.setText(String.valueOf(p.getWatering_freq()));
+                        sci_name.setText(String.valueOf(p.getScientific_name()));
+
+                        //ints
+                        int plantMoistureLevel =  p.calcCurrentMoisture();
+                        target_moisture.setText(String.valueOf(targetMoistureInterpreter(plantMoistureLevel)));
+                        watering_amount.setText(String.valueOf(p.getWatering_amount()));
+                        getSupportActionBar().setTitle(String.valueOf(p.getName()));
+                    }
                 }
+
             }
         });
         active_root.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -184,7 +209,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                         activePlantCheck.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                p.setAddress("/Plants/" + current_plant);
+                                p.setAddress("/Plants/" + nowhite);
                                 Map<String, Object> postValues = p.toMap();
                                 active_root.updateChildren(postValues);
                                 System.out.println("UPDATED ACTIVE_PLANT");
@@ -198,7 +223,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                         System.out.println(p.getAddress());
                         String[] arrValues = p.getAddress().split(Pattern.quote("/"));
                         int simpleResult = p.calcCurrentMoisture();
-                        if(!(current_plant.equals(arrValues[2]))){
+                        if(!(nowhite.equals(arrValues[2]))){
                             System.out.println("YOU'RE IN THE WRONG NEIGHBOURHOOD");
                             activePlantCheck.setVisibility(View.VISIBLE);
                             move_config.setVisibility(View.INVISIBLE);
@@ -212,7 +237,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                                     Map<String, Object> postValues = p.toMap();
                                     //active_root.updateChildren(postValues);
                                     System.out.println("UPDATED ACTIVE_PLANT");
-                                    active_root.child("address").setValue("/Plants/" + current_plant);
+                                    active_root.child("address").setValue("/Plants/" + nowhite);
                                     Intent myIntent = new Intent(getApplicationContext(), myPlantsActivity.class);
                                     startActivity(myIntent);
                                     finish();
