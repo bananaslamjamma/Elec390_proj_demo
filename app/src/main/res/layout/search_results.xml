@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius = "10dp"
+            app:cardElevation="10dp">
+            
+            <RelativeLayout
+                android:id="@+id/container_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+                
+                <TextView
+                    android:id="@+id/plant_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="plant_name"
+                    android:textStyle="bold"
+                    android:layout_marginRight="90dp"
+                    android:textColor="@android:color/holo_green_light"
+                    android:maxLines="3"
+                    android:layout_weight="3"
+                    android:lines="3"
+                    android:textSize="26dp"/>
+
+                <TextView
+                    android:id="@+id/plant_name_species"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="plant_name_species"
+                    android:layout_marginRight="90dp"
+                    android:textStyle="italic"
+                    android:layout_below="@id/plant_name"
+                    android:textColor="@android:color/holo_green_light"
+                    android:maxLines="3"
+                    android:layout_weight="3"
+                    android:lines="3"
+                    android:textSize="20dp"/>
+                <ImageView
+                    android:id="@+id/plant_image"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_weight="1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:text="placeholder"/>
+
+            </RelativeLayout>
+            
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -76,6 +78,9 @@ public class LoginActivity extends AppCompatActivity {
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     String strDate = dateFormat.format(date);
     TextView registerNavText;
+    EditText emailDia, passwordDia;
+    Button submitDia;
+    Dialog dialog;
 
 
     @Override
@@ -98,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
         mAuth = FirebaseAuth.getInstance();
@@ -105,10 +111,19 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
-        final Button sendButton = binding.sendData;
+        final Button resetPass = binding.resetPass;
+        //final Button sendButton = binding.sendData;
         final Button acButton = binding.active;
         final Button getButton = binding.getData;
         final ProgressBar loadingProgressBar = binding.loading;
+        //dialog
+        dialog = new Dialog(LoginActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.custom_dialog);
+        emailDia = dialog.findViewById(R.id.email_dia);
+        passwordDia = dialog.findViewById(R.id.password_dia);
+        submitDia = dialog.findViewById(R.id.submit_dia);
         //remove to init
         //setPlantsStack();
 
@@ -161,15 +176,22 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
 
+            }
+        });
 
 
-
-
+        resetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopUp();
             }
         });
 
 
 
+
+/**
+ *
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +208,8 @@ public class LoginActivity extends AppCompatActivity {
                 //plants.push().setValue(message);
             }
         });
+
+ **/
         acButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -285,8 +309,8 @@ public class LoginActivity extends AppCompatActivity {
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
+        emailDia.addTextChangedListener(afterTextChangedListener);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -328,5 +352,38 @@ public class LoginActivity extends AppCompatActivity {
         plants.setValue(plantsMap);
     }
 
+    private void resetEmail(String emailAddress) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.setLanguageCode("en");
+        //String emailAddress = "user@example.com";
+        auth.sendPasswordResetEmail(emailAddress)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(LoginActivity.this, "Email sent!",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(LoginActivity.this, "Not a registered email!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    public void showPopUp(){
+        submitDia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String email = String.valueOf(emailDia.getText());
+                //String password = String.valueOf(passwordDia.getText());
+                resetEmail(email);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 
 }
