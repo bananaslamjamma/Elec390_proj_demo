@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Plants {
 
-    public String name, date, nick_name;
+    public String name, date, nick_name, sunlight, watering_freq, plant_url;
     public int watering_amount, target_moisture;
     public int flag;
 
@@ -30,20 +30,48 @@ public class Plants {
         this.watering_amount = 0;
         this.target_moisture = 0;
     }
+
+    public Plants(String name, String date, String sun, String wf, String url) {
+        this.name = name;
+        this.date = date;
+        this.flag = 0;
+        this.watering_amount = 0;
+        this.target_moisture = 0;
+        this.sunlight = sun;
+        this.watering_freq = wf;
+        this.plant_url = url;
+    }
+
+    public String getSunlight() {
+        return sunlight;
+    }
+
+    public void setSunlight(String sunlight) {
+        this.sunlight = sunlight;
+    }
+
+    public String getWatering_freq() {
+        return watering_freq;
+    }
+
+    public void setWatering_freq(String watering_freq) {
+        this.watering_freq = watering_freq;
+    }
+
+    public String getPlant_url() {
+        return plant_url;
+    }
+
+    public void setPlant_url(String plant_url) {
+        this.plant_url = plant_url;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getNick_name() {
-        return nick_name;
-    }
-
-    public void setNick_name(String nick_name) {
-        this.nick_name = nick_name;
     }
 
     public int getFlag() {
@@ -107,16 +135,23 @@ public class Plants {
                 "name='" + name + '\'' +
                 ", date='" + date + '\'' +
                 ", nick_name='" + nick_name + '\'' +
+                ", sunlight='" + sunlight + '\'' +
+                ", watering_freq='" + watering_freq + '\'' +
+                ", plant_url='" + plant_url + '\'' +
                 ", watering_amount=" + watering_amount +
                 ", target_moisture=" + target_moisture +
                 ", flag=" + flag +
                 '}';
     }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
         result.put("date", date);
         result.put("flag", flag);
+        result.put("sunlight",  sunlight);
+        result.put("watering_freq",  watering_freq);
+        result.put("plant_url",  plant_url);
         result.put("watering_amount",  watering_amount);
         result.put("target_moisture", target_moisture);
         return result;

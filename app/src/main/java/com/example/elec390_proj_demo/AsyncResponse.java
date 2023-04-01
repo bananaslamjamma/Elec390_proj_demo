@@ -1,5 +1,9 @@
 package com.example.elec390_proj_demo;
 
+import java.util.ArrayList;
+
 public interface AsyncResponse {
-    void processFinish(String output);
+    void processFinish(ArrayList<Plants> output);
+
+    void onPreExecute();
 }

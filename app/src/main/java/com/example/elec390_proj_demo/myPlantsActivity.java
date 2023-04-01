@@ -93,7 +93,6 @@ public class myPlantsActivity extends AppCompatActivity {
                 addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                         if (snapshot.exists()) {
                             int size = (int) snapshot.getChildrenCount();
                             //count[0] =(int) snapshot.getChildrenCount();

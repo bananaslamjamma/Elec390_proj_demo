@@ -1,6 +1,7 @@
 package com.example.elec390_proj_demo;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,24 +14,35 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
  * The type of argues that can be passed
  */
 public class PerenualHandler extends AsyncTask<String, Void, String> {
-
+    Date date = Calendar.getInstance().getTime();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    String strDate = dateFormat.format(date);
     public AsyncResponse delegate = null;
     String BASIC_URL = "https://perenual.com/api/species-list?";
     String KEY = "key=sk-RPim64249281b6c46388";
-    String QUERY = "https://perenual.com/api/species-list?key=sk-RPim64249281b6c46388&q=rose";
+    String QUERY = "https://perenual.com/api/species-list?key=sk-RPim64249281b6c46388&q=";
     String QUERY_EXAMPLE = "https://perenual.com/api/species-list?key=sk-RPim64249281b6c46388&q=rose";
     String data = "";
+    ArrayList<Plants> apiPlantsList = new ArrayList<Plants>();
+
     @Override
     protected String doInBackground(String... params) {
         HttpURLConnection httpURLConnection = null;
+        String inputString = params[0];
+        String endpoint = QUERY + inputString;
         try {
-            URL url = new URL("https://perenual.com/api/species-list?key=sk-RPim64249281b6c46388&q=rose");
+            URL url = new URL(endpoint);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -54,29 +66,55 @@ public class PerenualHandler extends AsyncTask<String, Void, String> {
     }
 
     @Override
-        protected void onPostExecute (String s){
+    protected void onPostExecute(String s) {
         String singleParsed = "";
-        String dataParsed = "";
-        /**
-            try {
-                JSONArray jsonArray = new JSONArray(data);
-                System.out.println("ARRAY");
-                System.out.println(jsonArray);
-                int length =  jsonArray.length();
-                //JSONObject jsonObjectParent = (JSONObject) jsonArray.get(data);
-                for (int i = 0; i < 1; i++) {
-                    //get current object
-                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                    singleParsed = "ID:" + jsonObject.get("id") + "\n";
-                    dataParsed = dataParsed + singleParsed + "\n";
-                    String id = jsonObject.getString("id");
-                    String name = jsonObject.getString("thumbnail");
+        String common_name = "";
+        String watering = "";
+        String url = "";
+        System.out.println("API OUTPUT");
+        System.out.println(s);
+        try{
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            for (int i = 0; i < 5; i++) {
+                String sunlight = "";
+                JSONObject item = jsonArray.getJSONObject(i);
+                JSONArray sun = item.getJSONArray("sunlight");
+                //concat all the sunlight elements together
+                if(sun.length() >= 0){
+                    for(int j = 0; j < sun.length(); j++){
+                        sunlight = sunlight + sun.get(j) + ",";
+                    }
                 }
-            } catch (JSONException e){
-                e.printStackTrace();
+                JSONObject image = new JSONObject(item.getString("default_image"));
+                /**
+                singleParsed = "ID:" + item.get("id") + "\n" +
+                        "COMMON NAME:" + item.get("common_name") + "\n" +
+                        "WATERING:" + item.get("watering") + "\n" +
+                        "SUNLIGHT:" + sunlight + "\n" +
+                        "default_image:" + image.get("thumbnail") + "\n";
+                 */
+                common_name = item.getString("common_name");
+                watering = item.getString("watering");
+
+                if(image.has("thumbnail")){
+                    url = image.getString("thumbnail");
+                }else
+                    url = image.getString("original_url");
+
+                Plants p = new Plants(common_name, strDate, sunlight, watering, url);
+                apiPlantsList.add(p);
             }
-         **/
-            System.out.println(dataParsed);
-            delegate.processFinish(s);
+        } catch(JSONException e){
+            e.printStackTrace();
         }
+        delegate.processFinish(apiPlantsList);
     }
+    @Override
+    protected void onPreExecute() {
+        delegate.onPreExecute();
+    }
+}
+
+
+
