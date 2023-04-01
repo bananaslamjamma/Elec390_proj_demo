@@ -87,15 +87,20 @@ public class PerenualHandler extends AsyncTask<String, Void, String> {
                     }
                 }
                 JSONObject image = new JSONObject(item.getString("default_image"));
+                /**
                 singleParsed = "ID:" + item.get("id") + "\n" +
                         "COMMON NAME:" + item.get("common_name") + "\n" +
                         "WATERING:" + item.get("watering") + "\n" +
                         "SUNLIGHT:" + sunlight + "\n" +
                         "default_image:" + image.get("thumbnail") + "\n";
-
+                 */
                 common_name = item.getString("common_name");
                 watering = item.getString("watering");
-                url = image.getString("thumbnail");
+
+                if(image.has("thumbnail")){
+                    url = image.getString("thumbnail");
+                }else
+                    url = image.getString("original_url");
 
                 Plants p = new Plants(common_name, strDate, sunlight, watering, url);
                 apiPlantsList.add(p);
@@ -105,7 +110,6 @@ public class PerenualHandler extends AsyncTask<String, Void, String> {
         }
         delegate.processFinish(apiPlantsList);
     }
-
     @Override
     protected void onPreExecute() {
         delegate.onPreExecute();

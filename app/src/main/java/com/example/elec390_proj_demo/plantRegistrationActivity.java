@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.apache.commons.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -185,12 +186,10 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
         View view = getLayoutInflater().inflate(R.layout.search_results, null);
         TextView text = view.findViewById(R.id.plant_name);
         ImageView icon = view.findViewById(R.id.plant_image);
-
-        text.setText(String.valueOf(p.getName()));
+        text.setText(WordUtils.capitalize(String.valueOf(p.getName())));
         Glide.with(this).load(
                 p.getPlant_url() +
                 "").into(icon);
-
         layout.addView(view);
     }
 
