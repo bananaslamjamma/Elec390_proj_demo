@@ -96,6 +96,7 @@ public class myPlantsActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading results");
         progressDialog.setCancelable(false);
         progressDialog.show();
+        getSupportActionBar().setTitle("Home");
 
         user = auth.getCurrentUser();
         if (user == null) {

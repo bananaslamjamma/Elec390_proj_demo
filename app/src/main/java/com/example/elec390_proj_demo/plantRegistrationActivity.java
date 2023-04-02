@@ -49,8 +49,8 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
     FirebaseUser user;
     String uid_loc;
     ProgressDialog progressDialog;
-    Date date = Calendar.getInstance().getTime();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    Date date = new Date(System.currentTimeMillis());
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String strDate = dateFormat.format(date);
     PerenualHandler asyncTask = new PerenualHandler();
     Dialog dialog, confirm;
@@ -220,8 +220,9 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
                         u_root.updateChildren(childUpdates);
                         confirm.dismiss();
                         dialog.dismiss();
-                        Toast.makeText(plantRegistrationActivity.this, "New Plant Added!.",
+                        Toast.makeText(plantRegistrationActivity.this, "New Plant Added!",
                                 Toast.LENGTH_SHORT).show();
+                        confirm_add.setChecked(false);
                     }
                 });
                 confirm.show();
