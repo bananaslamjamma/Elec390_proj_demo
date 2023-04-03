@@ -18,4 +18,12 @@
         android:enabled="true"
         android:title="Edit Plant"
         android:visible="false" />
+    <item
+        android:id="@+id/dark_mode_switch"
+        android:title="DD"
+        android:tooltipText="Dark Mode"
+        app:showAsAction="always"
+        android:actionLayout="@layout/switch_layout"
+        app:actionViewClass="android.widget.Switch"
+        />
 </menu>

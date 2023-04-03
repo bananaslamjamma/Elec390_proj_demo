@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,14 +15,17 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.bumptech.glide.Glide;
 import com.example.elec390_proj_demo.ui.login.LoginActivity;
@@ -50,6 +54,9 @@ public class myPlantsActivity extends AppCompatActivity {
     DatabaseReference u_root = database.getReference("users");
     DatabaseReference p_root;
     ProgressDialog progressDialog;
+    Boolean darkmode;
+    Switch switch_view;
+    private SharedPreferenceHelper sharedPreferenceHelper;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,6 +64,41 @@ public class myPlantsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         //make "Edit Plants" hidden
         MenuItem item = menu.findItem(R.id.help_mode);
+        MenuItem switch_item = menu.findItem(R.id.dark_mode_switch);
+        Switch actionView = (Switch) switch_item.getActionView();
+        actionView.setText("Dark Mode");
+        sharedPreferenceHelper = new SharedPreferenceHelper(myPlantsActivity.this);
+        darkmode = sharedPreferenceHelper.readDarkMode();
+        switch_view = actionView;
+
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                actionView.setChecked(true);
+                sharedPreferenceHelper.saveDarkMode(true);
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                actionView.setChecked(false);
+                sharedPreferenceHelper.saveDarkMode(false);
+                // process
+                break;
+        }
+        //Destruction of activities
+        actionView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(sharedPreferenceHelper.readDarkMode() == true){
+                    System.out.println(sharedPreferenceHelper.readDarkMode());
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    sharedPreferenceHelper.saveDarkMode(false);
+                    actionView.setChecked(false);
+                } else if (sharedPreferenceHelper.readDarkMode() == false){
+                    System.out.println(sharedPreferenceHelper.readDarkMode());
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    sharedPreferenceHelper.saveDarkMode(true);
+                    actionView.setChecked(true);
+                }
+            }
+        });
         item.setVisible(false);
         menu.getItem(2).setVisible(false);
         return true;
@@ -72,16 +114,19 @@ public class myPlantsActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.dark_mode_switch:
+                System.out.println("EAT POOP");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView((R.layout.activity_myplants));
         String uid_loc;
-
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.logout);
         textView = findViewById(R.id.user_info);
@@ -208,5 +253,6 @@ public class myPlantsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 }

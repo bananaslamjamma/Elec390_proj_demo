@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +68,8 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
         MenuItem item = menu.findItem(R.id.help_mode);
         item.setVisible(false);
         //menu.getItem(2).setVisible(false);
+        MenuItem switch_item = menu.findItem(R.id.dark_mode_switch);
+        switch_item.setVisible(false);
         return true;
     }
 

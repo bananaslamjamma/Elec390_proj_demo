@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +52,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
     Button submitDia;
     Dialog dialog, helpDialog;
     CheckBox activePlantCheck, manualWaterCheck, autoRefreshCheck;
-    String current_plant = "", nowhite;
+    String current_plant = "", noWS_c_plant;
     //global objects
     Plants g_plants;
 
@@ -64,6 +64,8 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem switch_item = menu.findItem(R.id.dark_mode_switch);
+        switch_item.setVisible(false);
         return true;
     }
 
@@ -150,7 +152,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
             String value = extras.getString("plant_url");
             String img_url = extras.getString("plant_img");
             current_plant = extras.getString("plant_name");
-            nowhite = extras.getString("p_nameWhite");
+            noWS_c_plant = extras.getString("p_nameWhite");
             //System.out.println("current Plant");
             //System.out.println(current_plant);
             p_root = FirebaseDatabase.getInstance().getReferenceFromUrl(value);
@@ -209,7 +211,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                         activePlantCheck.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                p.setAddress("/Plants/" + nowhite);
+                                p.setAddress("/Plants/" + noWS_c_plant);
                                 Map<String, Object> postValues = p.toMap();
                                 active_root.updateChildren(postValues);
                                 //System.out.println("UPDATED ACTIVE_PLANT");
@@ -223,7 +225,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                         System.out.println(p.getAddress());
                         String[] arrValues = p.getAddress().split(Pattern.quote("/"));
                         int simpleResult = p.calcCurrentMoisture();
-                        if(!(nowhite.equals(arrValues[2]))){
+                        if(!(noWS_c_plant.equals(arrValues[2]))){
                             //System.out.println("NOT ACTIVE PLANT");
                             activePlantCheck.setVisibility(View.VISIBLE);
                             move_config.setVisibility(View.INVISIBLE);
@@ -237,7 +239,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                                     Map<String, Object> postValues = p.toMap();
                                     active_root.updateChildren(postValues);
                                     System.out.println("UPDATED ACTIVE_PLANT");
-                                    active_root.child("address").setValue("/Plants/" + nowhite);
+                                    active_root.child("address").setValue("/Plants/" + noWS_c_plant);
                                     Intent myIntent = new Intent(getApplicationContext(), myPlantsActivity.class);
                                     startActivity(myIntent);
                                     finish();

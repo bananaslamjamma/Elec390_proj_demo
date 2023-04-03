@@ -18,10 +18,6 @@
             android:name=".plantRegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_settings" />
-        <activity
             android:name=".RegisterActivity"
             android:exported="false"
             android:label="Register" />
@@ -32,7 +28,7 @@
         <activity
             android:name=".myPlantsActivity"
             android:exported="true"
-            android:label="myPlantsActivity">
+            android:label="Soil Sense">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

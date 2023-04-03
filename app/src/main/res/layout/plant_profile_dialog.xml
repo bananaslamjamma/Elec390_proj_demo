@@ -21,7 +21,6 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="15dp"
         android:text="Enter Target Moisture"
-        android:textColor="#000000"
         android:textSize="14sp" />
 
     <EditText
@@ -45,7 +44,6 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="15dp"
         android:text="Enter Watering Amount"
-        android:textColor="#000000"
         android:textSize="14sp" />
 
     <EditText
