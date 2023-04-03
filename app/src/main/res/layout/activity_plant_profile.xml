@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="173dp"
         android:text="date"
+        android:textColor="@color/moss_green"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault"
         android:textSize="20sp"
         app:autoSizeTextType="none"
@@ -55,9 +56,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="3dp"
+        android:textColor="@color/moss_green"
         android:layout_marginBottom="5dp"
         android:text="Plant Name"
-        android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/p_name"
         app:layout_constraintStart_toStartOf="@+id/p_name" />
@@ -127,10 +128,12 @@
         android:layout_marginStart="5dp"
         android:layout_marginBottom="7dp"
         android:text="Target Moisture"
-        android:textColor="#000000"
+        android:textColor="@color/moss_green"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/p_target_moisture_text"
-        app:layout_constraintStart_toStartOf="@+id/p_target_moisture_text" />
+        app:layout_constraintStart_toStartOf="@+id/p_target_moisture_text"
+        android:tooltipText="The designated moisture level of the plant."
+        />
 
     <TextView
         android:id="@+id/p_current_moisture_text"
@@ -140,11 +143,12 @@
         android:clickable="false"
         android:focusable="false"
         android:text="Current Moisture"
-        android:textColor="#000000"
+        android:textColor="@color/moss_green"
         android:textSize="14sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/p_current_moisture"
-        app:layout_constraintStart_toStartOf="@+id/p_current_moisture" />
+        app:layout_constraintStart_toStartOf="@+id/p_current_moisture"
+        android:tooltipText="How wet the soil is from the sensor reading"/>
 
     <EditText
         android:id="@+id/p_current_moisture"
@@ -173,7 +177,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginBottom="8dp"
         android:text="Watering Amount"
-        android:textColor="#000000"
+        android:textColor="@color/moss_green"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/p_watering_amount"
         app:layout_constraintStart_toStartOf="@+id/p_watering_amount" />
@@ -200,7 +204,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="7dp"
         android:text="Scientific Name"
-        android:textColor="#000000"
+        android:textColor="@color/moss_green"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/p_family_name"
         app:layout_constraintTop_toBottomOf="@+id/p_name" />
@@ -232,7 +236,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="84dp"
         android:text="Watering Frequency"
-        android:textColor="#000000"
+        android:textColor="@color/moss_green"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/p_name"
@@ -263,11 +267,13 @@
         android:layout_marginTop="73dp"
         android:layout_marginBottom="74dp"
         android:text="Sunlight Exposure"
-        android:textColor="#000000"
+        android:textColor="@color/moss_green"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/mov_config"
         app:layout_constraintStart_toStartOf="@+id/p_sunlight"
-        app:layout_constraintTop_toBottomOf="@+id/p_family_name_text" />
+        app:layout_constraintTop_toBottomOf="@+id/p_family_name_text"
+        android:tooltipText="Hours of direct sunlight, part shade = 4-6 hours, full shade = 3 hours, full sun = 6-8 hours"
+        />
 
     <EditText
         android:id="@+id/p_sunlight"
@@ -297,6 +303,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="2dp"
         android:backgroundTint="@color/moss_green"
+        android:visibility="invisible"
         android:text="Set Image"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintStart_toEndOf="@+id/mov_config" />
