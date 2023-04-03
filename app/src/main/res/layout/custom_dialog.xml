@@ -19,6 +19,8 @@
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:imeOptions="actionNext"
+        android:clickable="false"
+        android:focusable="false"
         android:id="@+id/email_dia"/>
 
     <Button

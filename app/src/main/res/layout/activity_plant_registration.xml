@@ -10,22 +10,26 @@
     <EditText
         android:id="@+id/name_plant"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginEnd="72dp"
         android:hint="Name"
         android:inputType="text"
         android:selectAllOnFocus="true"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/submitButton"
+        app:layout_constraintEnd_toStartOf="@+id/submitButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/submitButton" />
 
     <EditText
         android:id="@+id/field2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="94dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="211dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="91dp"
         android:hint="Search for a plant..."
         android:inputType="text"
         android:selectAllOnFocus="true"
@@ -37,23 +41,25 @@
     <EditText
         android:id="@+id/field3"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="31dp"
         android:hint="field3"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:selectAllOnFocus="true"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/submitButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/submitButton"
+        app:layout_constraintTop_toBottomOf="@+id/testButton" />
+
 
     <TextView
         android:id="@+id/plantProfileReturn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="57dp"
+        android:layout_marginBottom="60dp"
         android:text="Move to Home Page"
         app:layout_constraintBottom_toTopOf="@+id/testButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,28 +71,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="@color/moss_green"
         android:enabled="true"
         android:text="Add Plant!"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/field3"
+        app:layout_constraintStart_toEndOf="@+id/name_plant"
+        app:layout_constraintTop_toBottomOf="@+id/field3" />
 
     <Button
         android:id="@+id/testButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="335dp"
+        android:layout_marginBottom="44dp"
         android:backgroundTint="@color/moss_green"
         android:enabled="true"
         android:text="Search!"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/plantProfileReturn"
+        app:layout_constraintBottom_toTopOf="@+id/field3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/plantProfileReturn" />
 
     <ImageView
@@ -98,6 +105,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/testButton"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/submitButton"></ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
