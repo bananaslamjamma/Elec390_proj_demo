@@ -153,13 +153,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
             String img_url = extras.getString("plant_img");
             current_plant = extras.getString("plant_name");
             noWS_c_plant = extras.getString("p_nameWhite");
-            //System.out.println("current Plant");
-            //System.out.println(current_plant);
             p_root = FirebaseDatabase.getInstance().getReferenceFromUrl(value);
-            //System.out.println("DB ROOT");
-            //System.out.println(p_root);
-            //System.out.println("NO WHITE SPACE");
-            //System.out.println(nowhite);
             img = findViewById(R.id.imageView);
             if(!img_url.equals("")){
                 Glide.with(this).load(
@@ -314,10 +308,11 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         int rValue = 0;
+        /** DEBUG
         Toast.makeText(adapterView.getContext(),
                 "OnItemSelectedListener : " +  adapterView.getItemAtPosition(i).toString(),
                 Toast.LENGTH_SHORT).show();
-
+        **/
         switch(i){
             case 0: rValue = 656;
             break;
