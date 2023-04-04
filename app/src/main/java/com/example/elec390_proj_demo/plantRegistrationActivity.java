@@ -7,6 +7,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +35,6 @@ import org.apache.commons.text.WordUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +42,7 @@ import java.util.Map;
 
 public class plantRegistrationActivity extends AppCompatActivity implements AsyncResponse{
     TextView test_input, homeNavText;
-    EditText field1, field2, n_plant;
+    EditText field1, searchInput, n_plant;
     Button submitButton, apiButton;
     FirebaseAuth auth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -113,7 +113,22 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
         confirm.setCancelable(true);
         confirm.setContentView(R.layout.dialog_confirm_add);
         //other views
-        field2 =  findViewById(R.id.field2);
+        searchInput =  findViewById(R.id.field2);
+        searchInput.setFilters(new InputFilter[] {
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence cs, int start,
+                                               int end, Spanned spanned, int dStart, int dEnd) {
+                        if(cs.equals("")){ // for backspace
+                            return cs;
+                        }
+                        if(cs.toString().matches("[a-zA-Z ]+")){
+                            return cs;
+                        }
+                        return "";
+                    }
+                }
+        });
         homeNavText = findViewById(R.id.plantProfileReturn);
         submitButton = findViewById(R.id.submitButton);
         apiButton = findViewById(R.id.testButton);
@@ -148,7 +163,7 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
                 layout = dialog.findViewById(R.id.container_api);
                 layout.removeAllViews();
                 String input = "rose";
-                input = String.valueOf(field2.getText());
+                input = String.valueOf(searchInput.getText());
                 syncTasks(input);
             }
         });

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +60,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
     ActivePlant g_active;
 
     int moistureLevelValue  = 0;
+    int plantMoistureLevel = 0;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -127,8 +128,13 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
         manualWaterCheck = dialog.findViewById(R.id.manual_watering_check);
         autoRefreshCheck = dialog.findViewById(R.id.auto_refresh_check);
         submitDia = dialog.findViewById(R.id.profile_submit_dia);
+
+        dia_watering_amount.setFilters(new InputFilter[] {
+                new InputSanitizer(1,20)});
+
+
         //drop down list
-        spin = (Spinner) dialog.findViewById(R.id.TEST);
+        spin = (Spinner) dialog.findViewById(R.id.target_moisture_options);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.target_moisture_settings, android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
@@ -181,7 +187,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                         sci_name.setText(String.valueOf(p.getScientific_name()));
 
                         //ints
-                        int plantMoistureLevel =  p.calcCurrentMoisture();
+                        plantMoistureLevel =  p.calcCurrentMoisture();
                         target_moisture.setText(String.valueOf(targetMoistureInterpreter(plantMoistureLevel)));
                         watering_amount.setText(String.valueOf(p.getWatering_amount()));
                         getSupportActionBar().setTitle(String.valueOf(p.getName()));
@@ -207,6 +213,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                             public void onClick(View view) {
                                 p.setAddress("/Plants/" + noWS_c_plant);
                                 Map<String, Object> postValues = p.toMap();
+                                System.out.println("VALUES OF CHANGING ACTIVE PLANT");
                                 active_root.updateChildren(postValues);
                                 //System.out.println("UPDATED ACTIVE_PLANT");
                                 Intent myIntent = new Intent(getApplicationContext(), myPlantsActivity.class);
@@ -228,7 +235,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                                 @Override
                                 public void onClick(View view) {
                                     //if you're swapping over active_plants wipe the current settings
-                                    p.wipeProfile();
+                                    //p.wipeProfile();
                                     p.setAddress("Plants/" + current_plant);
                                     Map<String, Object> postValues = p.toMap();
                                     active_root.updateChildren(postValues);
@@ -263,40 +270,67 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
     }
 
     public void showPopUp() {
+        spin.setSelection(plantMoistureLevel-1);
+        if(!watering_amount.getText().toString().equals("0")){
+            dia_watering_amount.setText(String.valueOf(watering_amount.getText()));
+        }
+
         manualWaterCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                active_root.child("manualFlag").setValue(true);
-                dialog.dismiss();
-                //refresh the current activity
-                recreate();
+                if(!(dia_watering_amount.getText().toString().equals("") || dia_watering_amount.getText().toString().equals("0") )){
+                    active_root.child("arduinoRefresh").setValue(true);
+                    dialog.dismiss();
+                    //refresh the current activity
+                    recreate();
+                } else {
+                    manualWaterCheck.setChecked(false);
+                    Toast.makeText(view.getContext(),
+                            "Please enter a watering time!",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
         autoRefreshCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                active_root.child("arduinoRefresh").setValue(true);
-                dialog.dismiss();
-                //refresh the current activity
-                recreate();
+                if(!(dia_watering_amount.getText().toString().equals("") || dia_watering_amount.getText().toString().equals("0") )){
+                    active_root.child("arduinoRefresh").setValue(true);
+                    dialog.dismiss();
+                    //refresh the current activity
+                    recreate();
+                } else {
+                    autoRefreshCheck.setChecked(false);
+                    Toast.makeText(view.getContext(),
+                            "Please enter a watering time!",
+                            Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
         submitDia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //int moisture_input = Integer.valueOf(dia_target_moisture.getText().toString());
-                int moisture_input = moistureLevelValue;
-                int water_amt_input = Integer.valueOf(dia_watering_amount.getText().toString());
-                spin.getSelectedItem().toString();
-                g_plants.setTarget_moisture(moisture_input);
-                g_plants.setWatering_amount(water_amt_input);
-                Map<String, Object> postValues = g_plants.toMap();
-                //p_root.updateChildren(postValues);
-                p_root.child("watering_amount").setValue(water_amt_input);
-                p_root.child("target_moisture").setValue(moisture_input);
-                dialog.dismiss();
-                //refresh the current activity
-                recreate();
+                if(!(dia_watering_amount.getText().toString().equals("") || dia_watering_amount.getText().toString().equals("0") )){
+                    //int moisture_input = Integer.valueOf(dia_target_moisture.getText().toString());
+                    int moisture_input = moistureLevelValue;
+                    int water_amt_input = Integer.valueOf(dia_watering_amount.getText().toString());
+                    spin.getSelectedItem().toString();
+                    g_plants.setTarget_moisture(moisture_input);
+                    g_plants.setWatering_amount(water_amt_input);
+                    Map<String, Object> postValues = g_plants.toMap();
+                    //p_root.updateChildren(postValues);
+                    p_root.child("watering_amount").setValue(water_amt_input);
+                    p_root.child("target_moisture").setValue(moisture_input);
+                    dialog.dismiss();
+                    //refresh the current activity
+                    recreate();
+                }
+                else {
+                    Toast.makeText(view.getContext(),
+                            "Please enter a watering time!",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
