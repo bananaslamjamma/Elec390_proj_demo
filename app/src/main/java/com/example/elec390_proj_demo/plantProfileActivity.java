@@ -109,7 +109,7 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
         water_frequency = findViewById(R.id.p_watering_freq);
         sci_name = findViewById(R.id.p_family_name);
         //Buttons
-        save_change_button = findViewById(R.id.upload_button);
+        //save_change_button = findViewById(R.id.upload_button);
         move_config = findViewById(R.id.mov_config);
         activePlantCheck = findViewById(R.id.active_plants_check);
         //dialog

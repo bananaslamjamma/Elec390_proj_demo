@@ -7,63 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".plantProfileActivity">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="2dp"
-        android:alpha="0.4"
-        android:src="@drawable/footer_image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mov_config"></ImageView>
-
-
-    <TextView
-        android:id="@+id/p_date"
-        style="@android:style/Widget.Material.Light.TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="173dp"
-        android:text="date"
-        android:textColor="@color/moss_green"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-        android:textSize="20sp"
-        app:autoSizeTextType="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/p_name"
-        android:layout_width="0dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="13dp"
-        android:clickable="false"
-        android:focusable="false"
-        android:hint="Plant Name"
-        android:imeOptions="actionNext"
-        android:inputType="none"
-        app:layout_constraintBaseline_toBaselineOf="@+id/p_target_moisture_text"
-        app:layout_constraintEnd_toStartOf="@+id/p_watering_freq_text"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/p_name_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="3dp"
-        android:textColor="@color/moss_green"
-        android:layout_marginBottom="5dp"
-        android:text="Plant Name"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/p_name"
-        app:layout_constraintStart_toStartOf="@+id/p_name" />
-
-
     <!--
     <TextView
         android:id="@+id/p_descrp"
@@ -105,116 +48,189 @@
         tools:layout_editor_absoluteY="336dp" />
 -->
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="81dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="40dp"
+        android:alpha="0.4"
+        android:src="@drawable/footer_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mov_config"></ImageView>
+
+    <TextView
+        android:id="@+id/p_date"
+        style="@android:style/Widget.Material.Light.TextView"
+        android:layout_width="67dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="18dp"
+        android:text="date"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+        android:textColor="@color/moss_green"
+        android:textSize="12sp"
+        app:autoSizeTextType="none"
+        app:layout_constraintBottom_toTopOf="@+id/p_current_moisture_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/p_name"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="27dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="Plant Name"
+        android:imeOptions="actionNext"
+        android:inputType="none"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/p_family_name_text"
+        app:layout_constraintEnd_toStartOf="@+id/p_target_moisture_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/p_name_text" />
+
+    <TextView
+        android:id="@+id/p_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="60dp"
+        android:text="Plant Name"
+        android:textColor="@color/moss_green"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_current_moisture_text" />
+
     <EditText
         android:id="@+id/p_target_moisture_text"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="4dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="26dp"
         android:clickable="false"
         android:focusable="false"
         android:hint="Target Moisture"
         android:imeOptions="actionNext"
         android:inputType="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/p_watering_freq"
-        app:layout_constraintStart_toStartOf="@+id/p_watering_freq_text"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/p_watering_freq_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/p_name"
+        app:layout_constraintTop_toTopOf="@+id/p_target_moisture" />
 
     <TextView
         android:id="@+id/p_target_moisture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="10dp"
         android:text="Target Moisture"
         android:textColor="@color/moss_green"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/p_target_moisture_text"
-        app:layout_constraintStart_toStartOf="@+id/p_target_moisture_text"
+        android:textSize="12sp"
         android:tooltipText="The designated moisture level of the plant."
-        />
+        app:layout_constraintBottom_toTopOf="@+id/p_name"
+        app:layout_constraintStart_toStartOf="@+id/p_target_moisture_text" />
 
     <TextView
         android:id="@+id/p_current_moisture_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="188dp"
         android:clickable="false"
         android:focusable="false"
         android:text="Current Moisture"
         android:textColor="@color/moss_green"
-        android:textSize="14sp"
+        android:textSize="12sp"
+        android:tooltipText="How wet the soil is from the sensor reading"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/p_current_moisture"
         app:layout_constraintStart_toStartOf="@+id/p_current_moisture"
-        android:tooltipText="How wet the soil is from the sensor reading"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/p_current_moisture"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_width="364dp"
+        android:layout_height="42dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="46dp"
+        android:layout_marginBottom="26dp"
         android:clickable="false"
         android:focusable="false"
         android:hint="Current Moisture"
         android:imeOptions="actionNext"
         android:inputType="none"
+        android:textSize="16sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/p_target_moisture"
+        app:layout_constraintBottom_toTopOf="@+id/p_name_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/p_date" />
+        app:layout_constraintTop_toTopOf="@+id/p_current_moisture_text" />
 
     <TextView
         android:id="@+id/p_watering_amount_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="2dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="22dp"
         android:text="Watering Amount"
         android:textColor="@color/moss_green"
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/p_watering_amount"
-        app:layout_constraintStart_toStartOf="@+id/p_watering_amount" />
+        app:layout_constraintStart_toStartOf="@+id/p_watering_freq" />
 
     <EditText
         android:id="@+id/p_watering_amount"
         android:layout_width="0dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="38dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="246dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="246dp"
         android:clickable="false"
         android:focusable="false"
         android:hint="Watering Amount"
         android:imeOptions="actionNext"
         android:inputType="none"
-        app:layout_constraintBottom_toTopOf="@+id/p_sunlight"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toEndOf="@+id/p_sunlight"
-        app:layout_constraintTop_toTopOf="@+id/p_sunlight" />
+        app:layout_constraintTop_toBottomOf="@+id/p_current_moisture" />
 
     <TextView
         android:id="@+id/p_family_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="169dp"
+        android:layout_marginBottom="169dp"
         android:text="Scientific Name"
         android:textColor="@color/moss_green"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/p_family_name"
-        app:layout_constraintTop_toBottomOf="@+id/p_name" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/p_watering_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/p_current_moisture_text" />
 
     <EditText
         android:id="@+id/p_family_name"
-        android:layout_width="0dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
+        android:layout_width="175dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="7dp"
         android:clickable="false"
         android:focusable="false"
         android:hint="Scientific Name"
@@ -222,40 +238,39 @@
         android:inputType="none"
         android:lines="3"
         android:maxLines="3"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/p_watering_freq"
-        app:layout_constraintEnd_toEndOf="@+id/p_sunlight"
-        app:layout_constraintStart_toStartOf="@+id/p_name"
-        app:layout_constraintTop_toBottomOf="@+id/p_watering_freq" />
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/p_watering_freq"
+        app:layout_constraintEnd_toStartOf="@+id/p_watering_freq"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/p_watering_freq_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="16dp"
         android:text="Watering Frequency"
         android:textColor="@color/moss_green"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/p_name"
-        app:layout_constraintTop_toBottomOf="@+id/p_target_moisture_text" />
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/p_watering_freq"
+        app:layout_constraintStart_toStartOf="@+id/p_watering_freq" />
 
     <EditText
         android:id="@+id/p_watering_freq"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="11dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="33dp"
         android:clickable="false"
         android:focusable="false"
         android:hint="Watering Frequency"
         android:imeOptions="actionNext"
         android:inputType="none"
-        app:layout_constraintBottom_toTopOf="@+id/p_watering_amount_text"
-        app:layout_constraintEnd_toEndOf="@+id/p_current_moisture"
-        app:layout_constraintStart_toStartOf="@+id/p_watering_freq_text"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/p_watering_amount_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/p_family_name"
         app:layout_constraintTop_toTopOf="@+id/p_family_name_text" />
 
     <TextView
@@ -263,26 +278,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="73dp"
-        android:layout_marginBottom="74dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="25dp"
         android:text="Sunlight Exposure"
         android:textColor="@color/moss_green"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/mov_config"
-        app:layout_constraintStart_toStartOf="@+id/p_sunlight"
-        app:layout_constraintTop_toBottomOf="@+id/p_family_name_text"
+        android:textSize="12sp"
         android:tooltipText="Hours of direct sunlight, part shade = 4-6 hours, full shade = 3 hours, full sun = 6-8 hours"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_family_name" />
 
     <EditText
         android:id="@+id/p_sunlight"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="13dp"
+        android:layout_width="161dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="119dp"
+        android:layout_marginBottom="120dp"
         android:clickable="false"
         android:focusable="false"
         android:hint="Sunlight Exposure"
@@ -290,56 +300,47 @@
         android:inputType="none"
         android:lines="2"
         android:maxLines="2"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/mov_config"
-        app:layout_constraintEnd_toStartOf="@+id/p_watering_amount"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/p_sunlight_text" />
-
-    <Button
-        android:id="@+id/upload_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="2dp"
-        android:backgroundTint="@color/moss_green"
-        android:visibility="invisible"
-        android:text="Set Image"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/mov_config" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/mov_config"
+        app:layout_constraintEnd_toEndOf="@+id/p_family_name"
+        app:layout_constraintStart_toStartOf="@+id/p_sunlight_text"
+        app:layout_constraintTop_toBottomOf="@+id/p_family_name_text" />
 
     <Button
         android:id="@+id/mov_config"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginBottom="26dp"
+        android:layout_width="141dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="121dp"
         android:backgroundTint="@color/moss_green"
         android:text="Configuration"
-        app:layout_constraintBottom_toTopOf="@+id/active_plants_check"
-        app:layout_constraintStart_toStartOf="@+id/p_sunlight" />
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
         android:id="@+id/active_plants_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="181dp"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="Set as Active Plant?"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/upload_button"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
         tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="215dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginBottom="43dp"
-        app:layout_constraintBottom_toBottomOf="@+id/p_date"
+        android:layout_width="201dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/p_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
