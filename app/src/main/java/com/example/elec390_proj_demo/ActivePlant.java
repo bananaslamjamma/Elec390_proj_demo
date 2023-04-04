@@ -96,6 +96,10 @@ public class ActivePlant {
         return result;
     }
 
+
+
+
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("address", this.address);
