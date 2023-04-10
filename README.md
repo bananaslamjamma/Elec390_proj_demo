@@ -1,31 +1,42 @@
 
-# ELEC_390_SOIL_SENSE
-ELEC_390 Web Dev Project
-
-## Contributing
-Any Pull Request should be made to the dev branch.
+# SOIL-SENSE 
+ELEC_390 Soil Sense Project
 
 # Description
-README is still WIP. 
+-  Soil sense, is an automatic watering system which uses an Android application that enables the user to add and manage plants. 
 
-# Objective
+## Hardware Architecture 
+
+The hardware components used in this project are as follows: 
+* Arduino Nano 33 IoT 
+* Soil moisture sensor  
+* Water level sensor  
+* Peristaltic pump 
+* Magnetic coil relay 
 
 
 ## Core Features
-* TBD
-* TBD
-* TBD
+* Providing real-time information about the moisture level's of a user's active plant.
+* Provide a sample of of an online plant dictionary for more information about a user's plant.
+* Providing the user customizability & convenience to the particulars of caring for their plant.
 
 
-# Team Members & Info:
+## Team Members & Contribution:
+* Evan Yu 40112176   
+* Magy Gerges 40157151   
+* Ibrahim Abdelhadi 40165528   
+* Zachary Zazzara 40096894    
+* Hamza Sedqi 40103843
+
+## Android Programming Team
+* Evan Yu 40112176   
+* Magy Gerges 40157151   
+* Ibrahim Abdelhadi 40165528   
 
 
 # Languages and Techniques:
+- Java
 
-Languages and Techniques:
-HTML,CSS,Javascript,php
-
-* TBD
 
 
 
