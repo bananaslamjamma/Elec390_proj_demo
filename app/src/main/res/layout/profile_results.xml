@@ -18,8 +18,8 @@
                 android:id="@+id/container_relative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
-
+                android:padding="10dp"
+                android:foreground="?android:attr/selectableItemBackground">
                 <TextView
                     android:id="@+id/plant_name_home"
                     android:layout_width="wrap_content"

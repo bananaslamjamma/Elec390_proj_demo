@@ -21,7 +21,6 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="15dp"
         android:text="Enter Target Moisture"
-        android:textColor="#000000"
         android:textSize="14sp" />
 
     <EditText
@@ -34,7 +33,7 @@
         android:inputType="numberSigned" />
 
     <Spinner
-        android:id="@+id/TEST"
+        android:id="@+id/target_moisture_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -44,18 +43,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="15dp"
-        android:text="Enter Watering Amount"
-        android:textColor="#000000"
+        android:text="Enter Watering Time in Seconds"
         android:textSize="14sp" />
 
     <EditText
         android:id="@+id/watering_amount_dia"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="0"
-        android:hint="Watering Amount"
-        android:imeOptions="actionNext"
-        android:inputType="numberSigned" />
+        android:hint="Enter 1 to 20 seconds"
+        android:digits="0123456789"
+        android:inputType="number"
+        android:imeOptions="actionNext" />
     <!--
     <CheckBox
         android:id="@+id/active_plants_check"

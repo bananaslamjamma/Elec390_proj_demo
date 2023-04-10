@@ -23,7 +23,7 @@ import java.util.Date;
 
 
 /**
- * The type of argues that can be passed
+ * The type of arguments that can be passed
  */
 public class PerenualHandler extends AsyncTask<String, Void, String> {
     Date date = Calendar.getInstance().getTime();
@@ -90,13 +90,6 @@ public class PerenualHandler extends AsyncTask<String, Void, String> {
                     }
                 }
                 JSONObject image = new JSONObject(item.getString("default_image"));
-                /**
-                singleParsed = "ID:" + item.get("id") + "\n" +
-                        "COMMON NAME:" + item.get("common_name") + "\n" +
-                        "WATERING:" + item.get("watering") + "\n" +
-                        "SUNLIGHT:" + sunlight + "\n" +
-                        "default_image:" + image.get("thumbnail") + "\n";
-                 */
                 common_name = item.getString("common_name");
                 watering = item.getString("watering");
 

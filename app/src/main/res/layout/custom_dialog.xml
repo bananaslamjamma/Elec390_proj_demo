@@ -11,6 +11,8 @@
         android:text="Reset Password"
         android:textSize="24sp"
         android:id="@+id/password_dia"
+        android:clickable="false"
+        android:focusable="false"
         android:layout_marginBottom="16dp"/>
 
     <EditText

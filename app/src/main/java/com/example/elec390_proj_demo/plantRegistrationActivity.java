@@ -7,6 +7,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,15 +35,15 @@ import org.apache.commons.text.WordUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class plantRegistrationActivity extends AppCompatActivity implements AsyncResponse{
-    TextView test_input, homeNavText;
-    EditText field1, field2, n_plant;
+    TextView homeNavText;
+    EditText searchInput;
+    EditText n_plant;
     Button submitButton, apiButton;
     FirebaseAuth auth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -49,8 +51,8 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
     FirebaseUser user;
     String uid_loc;
     ProgressDialog progressDialog;
-    Date date = Calendar.getInstance().getTime();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    Date date = new Date(System.currentTimeMillis());
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     String strDate = dateFormat.format(date);
     PerenualHandler asyncTask = new PerenualHandler();
     Dialog dialog, confirm;
@@ -67,6 +69,8 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
         MenuItem item = menu.findItem(R.id.help_mode);
         item.setVisible(false);
         //menu.getItem(2).setVisible(false);
+        MenuItem switch_item = menu.findItem(R.id.dark_mode_switch);
+        switch_item.setVisible(false);
         return true;
     }
 
@@ -110,7 +114,22 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
         confirm.setCancelable(true);
         confirm.setContentView(R.layout.dialog_confirm_add);
         //other views
-        field2 =  findViewById(R.id.field2);
+        searchInput =  findViewById(R.id.field2);
+        searchInput.setFilters(new InputFilter[] {
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence cs, int start,
+                                               int end, Spanned spanned, int dStart, int dEnd) {
+                        if(cs.equals("")){ // for backspace
+                            return cs;
+                        }
+                        if(cs.toString().matches("[a-zA-Z ]+")){
+                            return cs;
+                        }
+                        return "";
+                    }
+                }
+        });
         homeNavText = findViewById(R.id.plantProfileReturn);
         submitButton = findViewById(R.id.submitButton);
         apiButton = findViewById(R.id.testButton);
@@ -145,7 +164,7 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
                 layout = dialog.findViewById(R.id.container_api);
                 layout.removeAllViews();
                 String input = "rose";
-                input = String.valueOf(field2.getText());
+                input = String.valueOf(searchInput.getText());
                 syncTasks(input);
             }
         });
@@ -212,7 +231,6 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
                                     Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        //Plants plant = new Plants(plantName,strDate, 0);
                         //see Plants class for more info
                         Map<String, Object> plantValues = p.toMap();
                         Map<String,Object> childUpdates = new HashMap<>();
@@ -220,8 +238,9 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
                         u_root.updateChildren(childUpdates);
                         confirm.dismiss();
                         dialog.dismiss();
-                        Toast.makeText(plantRegistrationActivity.this, "New Plant Added!.",
+                        Toast.makeText(plantRegistrationActivity.this, "New Plant Added!",
                                 Toast.LENGTH_SHORT).show();
+                        confirm_add.setChecked(false);
                     }
                 });
                 confirm.show();
