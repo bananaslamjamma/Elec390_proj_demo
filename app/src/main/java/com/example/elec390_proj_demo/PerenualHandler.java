@@ -23,7 +23,7 @@ import java.util.Date;
 
 
 /**
- * The type of argues that can be passed
+ * The type of arguments that can be passed
  */
 public class PerenualHandler extends AsyncTask<String, Void, String> {
     Date date = Calendar.getInstance().getTime();

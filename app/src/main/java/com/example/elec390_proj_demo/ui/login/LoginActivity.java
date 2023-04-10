@@ -53,27 +53,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 
-/**
- * https://firebase.google.com/docs/database/android/read-and-write
- * TODO: Create Objects for Plants so can push easily and and update easily. (can only update objects)
- *
- */
-
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
-    //private FireBaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference root = database.getReference("users");
     DatabaseReference best_sellers = root.child("Best_Sellers");
     DatabaseReference plants = root.child("Plants");
 
-    DatabaseReference active = plants.child("Active");
     DatabaseReference element_test = best_sellers.child("-NO_tty67z-rn950GVHz");
 
-    DatabaseReference chr = plants.child("Chrysanthemum");
     Date date = Calendar.getInstance().getTime();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     String strDate = dateFormat.format(date);
@@ -89,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            //open main activity that needs
             Intent intent = new Intent(getApplicationContext(), myPlantsActivity.class);
             startActivity(intent);
             finish();
@@ -112,7 +102,6 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final Button resetPass = binding.resetPass;
-        //final Button sendButton = binding.sendData;
         final Button acButton = binding.active;
         final Button getButton = binding.getData;
         final ProgressBar loadingProgressBar = binding.loading;
@@ -124,8 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         emailDia = dialog.findViewById(R.id.email_dia);
         passwordDia = dialog.findViewById(R.id.password_dia);
         submitDia = dialog.findViewById(R.id.submit_dia);
-        //remove to init
-        //setPlantsStack();
+
 
 
         registerNavText = findViewById(R.id.registerPage);
@@ -187,29 +175,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-/**
- *
-
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Map<String, String> message = new HashMap<>();
-                Map<String, Integer> message2 = new HashMap<>();
-
-                //message2.put("Flag" , 1);
-                message.put("Active" , "/Books/Plants/Chrysanthemum");
-                //root.push().setValue(message);
-                // System.out.println(root);
-                //note that if child "plants doesn't exist, it'll force create one.
-                plants.child("Active Plants").setValue(message);
-                //plants.push().setValue(message);
-            }
-        });
-
- **/
         acButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -230,30 +195,6 @@ public class LoginActivity extends AppCompatActivity {
                 plants.updateChildren(message2);
             }
         });
-
-        /**
-         * deprecated, changed data structure
-         * detects if value was changed in db, this will get the entire Plants node
-
-        plants.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("NODE", dataSnapshot.child("Chrysanthemum/name").getValue(String.class));
-                System.out.println("DATA SNAPSHOTTED");
-                System.out.println(dataSnapshot.child("Chrysanthemum/Flag").getValue(Integer.class));
-                Map<String, Object> reset = new HashMap<>();
-                reset.put("Chrysanthemum/Flag", 1);
-                plants.updateChildren(reset);
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("ERROR", "onCancelled", databaseError.toException());
-            }
-        });
-         */
-
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
@@ -320,17 +261,6 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-/**
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-            }
-        });
- **/
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
@@ -341,15 +271,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
-    }
-    private void setPlantsStack(){
-        Map<String, Plants> plantsMap = new HashMap<>();
-        plantsMap.put("Chrysanthemum", new Plants("Chrysanthemum",strDate, 0));
-        plantsMap.put("Rose", new Plants("Rose",strDate, 0));
-        plantsMap.put("Daylily", new Plants("Daylily",strDate, 0));
-        plantsMap.put("Hyacinth ", new Plants("Hyacinth",strDate, 0));
-        plantsMap.put("Carnation", new Plants("Carnation",strDate, 0));
-        plants.setValue(plantsMap);
     }
 
     private void resetEmail(String emailAddress) {

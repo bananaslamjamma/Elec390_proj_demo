@@ -213,9 +213,8 @@ public class plantProfileActivity extends AppCompatActivity implements AdapterVi
                             public void onClick(View view) {
                                 p.setAddress("/Plants/" + noWS_c_plant);
                                 Map<String, Object> postValues = p.toMap();
-                                System.out.println("VALUES OF CHANGING ACTIVE PLANT");
+                                //System.out.println("VALUES OF CHANGING ACTIVE PLANT");
                                 active_root.updateChildren(postValues);
-                                //System.out.println("UPDATED ACTIVE_PLANT");
                                 Intent myIntent = new Intent(getApplicationContext(), myPlantsActivity.class);
                                 startActivity(myIntent);
                                 finish();

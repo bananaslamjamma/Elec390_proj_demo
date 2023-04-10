@@ -42,7 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 public class myPlantsActivity extends AppCompatActivity {
     FirebaseAuth auth;
     Button button;
-    TextView textView, homeNavText;
+    TextView textView;
     FloatingActionButton fab_add_plant;
     // Parent layout
     LinearLayout parentLayout;
@@ -115,7 +115,6 @@ public class myPlantsActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.dark_mode_switch:
-                System.out.println("EAT POOP");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -208,7 +207,7 @@ public class myPlantsActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View view) {
                                         String str;
-                                        //note for whatever reason, firebase does not like the path_name to have whitespaces
+                                        //note firebase does not like the path_name to have whitespaces
                                         str = (u_root.child("/Plants/" + p.name.replaceAll("\\s+","")).toString());
                                         //retrieve url to plant item and pass it on to intent to init it in new Activity
                                         //p_root = FirebaseDatabase.getInstance().getReferenceFromUrl(str);

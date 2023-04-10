@@ -41,8 +41,9 @@ import java.util.Map;
 
 
 public class plantRegistrationActivity extends AppCompatActivity implements AsyncResponse{
-    TextView test_input, homeNavText;
-    EditText field1, searchInput, n_plant;
+    TextView homeNavText;
+    EditText searchInput;
+    EditText n_plant;
     Button submitButton, apiButton;
     FirebaseAuth auth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -230,7 +231,6 @@ public class plantRegistrationActivity extends AppCompatActivity implements Asyn
                                     Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        //Plants plant = new Plants(plantName,strDate, 0);
                         //see Plants class for more info
                         Map<String, Object> plantValues = p.toMap();
                         Map<String,Object> childUpdates = new HashMap<>();
