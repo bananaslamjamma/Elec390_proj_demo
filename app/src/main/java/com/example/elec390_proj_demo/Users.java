@@ -6,8 +6,6 @@ public class Users {
     public String user_name;
     public String u_id;
 
-
-
     public Users(String us, String u ) {
         this.user_name = us;
         this.u_id = u;
