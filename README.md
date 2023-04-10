@@ -1,6 +1,6 @@
 
-# SOIL-SENSE 
-ELEC_390 Soil Sense Project
+# ![alt text](https://github.com/bananaslamjamma/soil_sense_proj_390/blob/ey_working/app/soil_sense_banner.PNG)
+ELEC_390 Project Design Project
 
 # Description
 -  Soil sense, is an automatic watering system which uses an Android application that enables the user to add and manage plants. 
@@ -29,9 +29,11 @@ The hardware components used in this project are as follows:
 * Hamza Sedqi 40103843
 
 ## Android Programming Team
+(See Contributions in Insights Tab)
 * Evan Yu 40112176   
 * Magy Gerges 40157151   
 * Ibrahim Abdelhadi 40165528   
+
 
 
 # Languages and Techniques:
