@@ -1,7 +1,13 @@
 package com.example.elec390_proj_demo;
 
-public class Users {
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @Users.class
+ * Users datamodel for importing/exporting from app/database
+ */
 
+public class Users {
 
     public String user_name;
     public String u_id;

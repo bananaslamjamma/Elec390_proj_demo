@@ -39,6 +39,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @myPlantsActivity.java
+ * Soil-Sense Home page
+ */
+
+
 public class myPlantsActivity extends AppCompatActivity {
     FirebaseAuth auth;
     Button button;

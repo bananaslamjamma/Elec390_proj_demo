@@ -33,6 +33,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Map;
 import java.util.regex.Pattern;
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @plantProfileActivity.java
+ * Activity to handle the View & Configuration for User's Plant
+ */
 
 public class plantProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

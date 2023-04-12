@@ -3,6 +3,13 @@ package com.example.elec390_proj_demo;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @SharedPreferenceHelper.java
+ * shared key values persistance
+ */
+
 public class SharedPreferenceHelper {
 
     private SharedPreferences sharedPreferences;
