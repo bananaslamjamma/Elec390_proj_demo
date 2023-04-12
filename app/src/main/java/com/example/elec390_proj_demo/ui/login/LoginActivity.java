@@ -53,6 +53,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @LoginActivity.java
+ * Activity to handle the login & password recovery for a user
+ */
+
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
 

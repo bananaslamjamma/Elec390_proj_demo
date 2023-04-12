@@ -42,6 +42,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @RegisterActivity.java
+ * Activity to handle the registration for a user
+ */
 
 public class RegisterActivity extends AppCompatActivity {
 

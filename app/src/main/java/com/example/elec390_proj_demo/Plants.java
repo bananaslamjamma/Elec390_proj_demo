@@ -2,14 +2,18 @@ package com.example.elec390_proj_demo;
 
 import java.util.HashMap;
 import java.util.Map;
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @Plants.class
+ * Plants datamodel for importing/exporting from app/database
+ */
 
 public class Plants {
 
     public String name, date, scientific_name, sunlight, watering_freq, plant_url;
     public int watering_amount, target_moisture;
     public int flag;
-
-
 
     public Plants(String name, String date, int flag, int watering_amount, int target_moisture) {
         this.name = name;

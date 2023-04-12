@@ -3,6 +3,13 @@ package com.example.elec390_proj_demo;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @ActivePlant.class
+ * ActivePlant datamodel for importing/exporting from app/database
+ */
+
 public class ActivePlant {
 
     public String address;

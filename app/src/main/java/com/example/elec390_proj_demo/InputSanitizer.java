@@ -4,6 +4,12 @@ package com.example.elec390_proj_demo;
 import android.text.InputFilter;
 import android.text.Spanned;
 
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @InputSanitzer text validation class
+ */
+
 public class InputSanitizer implements InputFilter {
     private int minInt, minMax;
 

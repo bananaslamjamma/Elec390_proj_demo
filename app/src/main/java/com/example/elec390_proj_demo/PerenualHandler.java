@@ -21,10 +21,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
 /**
- * The type of arguments that can be passed
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @PerenualHandler.java Asynchrnous Task Handling for Perenual API usage
  */
+
 public class PerenualHandler extends AsyncTask<String, Void, String> {
     Date date = Calendar.getInstance().getTime();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");

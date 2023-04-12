@@ -38,7 +38,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * ELEC-390 Soil Sense
+ * Created by Evan Yu on 04/01/2023.
+ * @plantRegistrationActivity.java
+ * Registration of plants to the User's myPlantsActivity
+ */
 
 public class plantRegistrationActivity extends AppCompatActivity implements AsyncResponse{
     TextView homeNavText;
