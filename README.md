@@ -1,5 +1,5 @@
 
-# ![alt text](https://github.com/bananaslamjamma/soil_sense_proj_390/blob/ey_working/app/soil_sense_banner.PNG)
+# ![alt text](https://github.com/bananaslamjamma/soil_sense_proj_390/blob/dev/app/soil_sense_banner.PNG)
 ELEC_390 Project Design Project
 
 # Description
